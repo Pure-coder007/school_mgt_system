@@ -1,4 +1,4 @@
-from ..extensions import db
+from extensions import db
 from functools import wraps
 from .students import code_generator
 from datetime import datetime
