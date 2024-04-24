@@ -82,7 +82,7 @@
     <!-- Navbar -->
     <nav class="d-flex align-items-center navbar navbar-expand-lg nav-bar text-white py-3" id="navbar" style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
       <div class="container">
-        <a href="" class="navbar-brand d-flex align-items-center">
+        <a href="{{ url_for('school.landing_page') }}" class="navbar-brand d-flex align-items-center">
           <img
             src="{{ url_for('static', filename='logo2.png') }}"
             alt="company's logo"
@@ -154,6 +154,11 @@
                     </button>
                 </form>
             </li>
+
+            <li class="nav-item _box px-2">
+                <a href="{{ url_for('school.login') }}" class="nav-link text-white btn btn-info" id="navlinks" style="font-size: .9rem;">
+                  LOGIN</a>
+              </li>
 
             </ul>
         </div>
