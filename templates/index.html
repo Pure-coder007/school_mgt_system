@@ -4,7 +4,7 @@
     <p class="fs-1 text-center text-white inside_header" id="header_text">
         Find Our Best Online Courses & Learn More
     </p>
-    <p class="text-center text-muted inside_header w-50" style="font-size: .8rem;">
+    <p class="text-center text-muted inside_header w-50" style="font-size: .8rem;" id="before_icons">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eveniet est molestiae deserunt quibusdam illum sit
         quos consectetur necessitatibus, perferendis praesentium culpa, atque soluta maxime incidunt. A laudantium vero
         placeat.
@@ -26,7 +26,7 @@
 
     <!-- four cards in grid -->
     <div class="container my-5">
-        <div class="row">
+        <div class="row g-3">
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
@@ -129,7 +129,7 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
                             <!-- images in cards -->
-                            <div class="row">
+                            <div class="row g-2">
                                 <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-body">
@@ -167,7 +167,7 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile">
-                            <div class="row">
+                            <div class="row g-2">
                                 <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-body">
@@ -241,7 +241,7 @@
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="settings">
-                            <div class="row">
+                            <div class="row g-2">
                                 <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-body">
@@ -444,6 +444,10 @@
         @media all and (max-width:724px) {
             .nav-tab>li>a>span {
                 display: none;
+            }
+
+            #before_icons{
+                width: 100% !important;
             }
 
             .nav-tab>li>a {
