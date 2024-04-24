@@ -7,10 +7,108 @@
 <p class="text-center text-muted inside_header w-50" style="font-size: .8rem;">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eveniet est molestiae deserunt quibusdam illum sit quos consectetur necessitatibus, perferendis praesentium culpa, atque soluta maxime incidunt. A laudantium vero placeat.
 </p>
-<button class="btn btn-primary inside_header">View Courses</button>
+<div class="mt-2 inside_header">
+    <!-- social media icons -->
+    <i class="fab fa-twitter text-white rounded-circle p-2 mx-1 border"></i>
+    <i class="fab fa-linkedin-in text-white rounded-circle p-2 mx-1 border"></i>
+    <i class="fab fa-youtube text-white rounded-circle p-2 mx-1 border"></i>
+    <i class="fab fa-instagram text-white rounded-circle p-2 mx-1 border"></i>
+</div>
+<button class="btn btn-info inside_header mt-5" style="font-size: .9rem;">View Courses</button>
 </div>
 
 {% endblock header %} {% block content %}
+
+<div>
+    <p class="fs-3 text-center mt-5 fw-bold">Why Choose Us</p>
+
+    <!-- four cards in grid -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-graduation-cap fa-3x text-white p-2 rounded-circle bg-info"></i>
+                        <h3 class="card-title mt-3 text-muted">Best Courses</h3>
+                        <p class="card-text mt-3">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-users fa-3x text-white p-2 rounded-circle bg-info"></i>
+                        <h3 class="card-title mt-3 text-muted">Best Teachers</h3>
+                        <p class="card-text mt-3">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-book-reader fa-3x text-white p-2 rounded-circle bg-info"></i>
+                        <h3 class="card-title mt-3 text-muted">Best Library</h3>
+                        <p class="card-text mt-3">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-award fa-3x text-white p-2 rounded-circle bg-info"></i>
+                        <h3 class="card-title mt-3 text-muted">Best Awards</h3>
+                        <p class="card-text mt-3">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- logos in grd -->
+    <!-- logos in grd -->
+
+    <div class="container bg-info logo-container">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="mx-2">
+                <img src="../static/lenovo.png" alt="logo" class="img-fluid">
+            </div>
+
+            <div class="mx-2">
+                <img src="../static/samsung.png" alt="logo" class="img-fluid">
+            </div>
+
+            <div class="mx-2">
+                <img src="../static/sony.png" alt="logo" class="img-fluid">
+            </div>
+
+            <div class="mx-2">
+                <img src="../static/huawei.png" alt="logo" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<!-- THE STYLING CSS -->
+<!-- THE STYLING CSS -->
+<!-- THE STYLING CSS -->
+<!-- THE STYLING CSS -->
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -45,11 +143,46 @@
 }
 
 #header-container {
-      height: 50vh;
+      height: 60vh;
   }
 
   #header_text {
     font-family: 'Poppins', sans-serif;
+  }
+  .fab{
+    cursor: pointer;
+  }
+  .fab:hover {
+      bottom: 10px;
+      position: relative;
+  }
+
+  .fas{
+    font-size: 1rem;
+  }
+
+  .card-title{
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .card-text{
+    font-size: .9rem;
+  }
+
+  .card{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 5px;
+  }
+
+  .logo-container{
+      padding: 3rem;
+      margin-top: 8rem;
+  }
+
+  .logo-container img{
+      width: 9rem;
+      filter: grayscale(100%);
   }
 </style>
 
