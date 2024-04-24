@@ -78,16 +78,17 @@
     />
   </head>
   <body class='light'>
+    <header class="">
     <!-- Navbar -->
-    <nav class="d-flex align-items-center navbar navbar-expand-lg nav-bar bg-dark text-white py-3" id="navbar">
+    <nav class="d-flex align-items-center navbar navbar-expand-lg nav-bar text-white py-3" id="navbar" style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
       <div class="container">
         <a href="" class="navbar-brand d-flex align-items-center">
           <img
             src="{{ url_for('static', filename='logo2.png') }}"
             alt="company's logo"
-            style="width: 2.0rem; filter: grayscale(100%); filter: brightness(10000%);"
+            style="width: 2.0rem; filter: grayscale(100%);"
           />
-          <span class='logo-text text-white' style="font-size: .9rem;">&nbsp;ACA<span class="text-warning">DEMIA</span></span>
+          <span class='logo-text text-dark' style="font-size: .9rem;">&nbsp;ACA<span class="text-dark">DEMIA</span></span>
         </a>
 
         <button
@@ -105,42 +106,42 @@
         <div class="collapse navbar-collapse" id="navmenu">
           <ul class="navbar-nav m-auto">
             <li class="nav-item _box {%if index%} bg-warning {%endif%} px-2" style="font-size: .9rem;">
-              <a href="" class="nav-link {%if index%} text-dark {%else%} hove text-white {%endif%}" id="navlinks">
+              <a href="" class="nav-link {%if index%} text-dark {%else%} hove text-dark {%endif%}" id="navlinks">
                 HOME</a>
             </li>
             <li class="nav-item _box px-2 {%if admin%} bg-warning {%endif%}" style="font-size: .9rem;">
-              <a href="" class="nav-link  {%if admin%} text-dark {%else%} hove text-white {%endif%}" id="navlinks">
+              <a href="" class="nav-link  {%if admin%} text-dark {%else%} hove text-dark {%endif%}" id="navlinks">
                 <!-- <button  type="button" class="btn" > -->
                 ABOUT US
             <!-- </button> -->
             </a>
             </li>
             <!-- <li class="nav-item _box px-2 {%if create_admin%} bg-warning {%endif%}">
-              <a href="" class="nav-link  {%if create_admin%} text-dark {%else%} hove text-white {%endif%}" id="navlinks">
+              <a href="" class="nav-link  {%if create_admin%} text-dark {%else%} hove text-dark {%endif%}" id="navlinks">
                 CREATE ADMIN
             </a>
             </li> -->
             <!-- <li class="nav-item _box px-2 {%if post_active%} bg-warning {%endif%}">
-              <a href="" class="nav-link  {%if post_active%} text-dark {%else%} hove text-white {%endif%}" id="navlinks">
+              <a href="" class="nav-link  {%if post_active%} text-dark {%else%} hove text-dark {%endif%}" id="navlinks">
                 POST
             </a>
             </li> -->
             <!-- <li class="nav-item _box px-2">
-              <a href="" class="nav-link hove text-white" id="navlinks">
+              <a href="" class="nav-link hove text-dark" id="navlinks">
                 LOGOUT
             </a>
             </li> -->
             <!-- <li class="nav-item _box px-2 {%if category%} bg-warning {%endif%}">
-              <a href="" class="nav-link  {%if category%} text-dark {%else%} hove text-white {%endif%}" id="navlinks" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <a href="" class="nav-link  {%if category%} text-dark {%else%} hove text-dark {%endif%}" id="navlinks" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 CATEGORY
             </a>
             </li> -->
             <!-- <li class="nav-item _box px-2">
-              <a href="" class="hove nav-link text-white" id="navlinks">
+              <a href="" class="hove nav-link text-dark" id="navlinks">
                 SINGLE NEWS</a>
             </li> -->
             <li class="nav-item _box px-2" style="font-size: .9rem;">
-              <a href="" class="nav-link  {%if feedback %} text-dark {%else%} hove text-white {%endif%}" id="navlinks">
+              <a href="" class="nav-link  {%if feedback %} text-dark {%else%} hove text-dark {%endif%}" id="navlinks">
                 FEEDBACK</a>
             </li>
             
@@ -158,6 +159,7 @@
         </div>
       </div>
     </nav>
+    </header>
     <section class="">
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
