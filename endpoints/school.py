@@ -10,4 +10,6 @@ def landing_page():
 
 @school.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    alert = "This is login"
+    bg_color = "success"
+    return render_template('login.html', alert=alert, bg_color=bg_color)
