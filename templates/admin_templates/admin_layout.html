@@ -14,6 +14,7 @@
 
     <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <style>
         /* Custom CSS for sidebar sliding animation */
         .sidebar {
@@ -68,11 +69,24 @@
             <div class="d-flex flex-column">
             <a href="" class="bg-white text-dark p-3 sidemenu_link">
                 <i class="fas fa-user"></i> Profile</a>
-            <a href="{{url_for('school.logout')}}" class="p-3 sidemenu_link text-danger">
-                <!-- logout icon -->
-                <i class="fas fa-sign-out-alt text-danger"></i>
-                Logout</a>
+            <!-- for students -->
+            <a href="" class="p-3 sidemenu_link">
+                <i class="fas fa-user-graduate"></i> Students</a>
+            
+                <!-- for teams -->
+            <a href="" class="p-3 sidemenu_link">
+                <i class="fas fa-user-shield"></i> Teams</a>
+
+                <!-- for courses -->
+            <a href="" class="p-3 sidemenu_link">
+                <i class="fas fa-book"></i> Courses</a>
             </div>
+
+            <a class="p-2 sidemenu_link text-dark position-fixed bottom-0 mb-5 h5" data-bs-toggle="modal" 
+            data-bs-target="#exampleModall" style="font-size: .75rem; cursor: pointer; background: rgb(227, 107, 107);">
+                <!-- logout icon -->
+                <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
             <button class="btn btn-primary d-md-none" id="closeSidebar">Close Sidebar</button>
         </div>
     </div>
@@ -100,18 +114,34 @@
     </div>
     {% endif %}
 
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModall" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabell" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h5 class="modal-title text-center mb-2" id="exampleModalLabell" style="font-size: .8rem;">You want to logout?</h5>
+          <div class="d-flex justify-content-center">
+          <a href="{{url_for('school.logout')}}" class="btn btn-danger text-decoration-none"><i class="fas fa-check text-white"></i></a>
+          <a class="btn btn-info mx-1 text-decoration-none" data-bs-dismiss="modal"><i class="fas fa-times text-white"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
 
-        var myToast = new bootstrap.Toast(document.querySelector('.toast'));
+        // var myToast = new bootstrap.Toast(document.querySelector('.toast'));
 
-        document.querySelector('.toast').style.transform = 'translateX(-0%)';
+        // document.querySelector('.toast').style.transform = 'translateX(-0%)';
 
-        setTimeout(function () {
-            // fade the toast away
-            document.querySelector('.toast').style.transition = '2s ease-in-out';
-            myToast.hide();
-        }, 2000);
+        // setTimeout(function () {
+        //     // fade the toast away
+        //     document.querySelector('.toast').style.transition = '2s ease-in-out';
+        //     myToast.hide();
+        // }, 2000);
         const sidebar = document.getElementById('sidebar');
         const openSidebarBtn = document.getElementById('openSidebar');
         const closeSidebarBtn = document.getElementById('closeSidebar');
@@ -137,6 +167,19 @@
         } else {
             sidebar.style.left = '-250px';
         }
+
+
+
+
+        var myToast = new bootstrap.Toast(document.querySelector('.toast'));
+
+        document.querySelector('.toast').style.transform = 'translateX(-0%)';
+
+        setTimeout(function () {
+            // fade the toast away
+            document.querySelector('.toast').style.transition = '2s ease-in-out';
+            myToast.hide();
+        }, 2000);
     </script>
 </body>
 
