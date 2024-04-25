@@ -36,4 +36,4 @@ def login():
 
 @school.route('/dashboard', methods=['GET'])
 def dashboard():
-    return render_template('student_dashboard.html')
+    return render_template('admin_templates/home.html')
