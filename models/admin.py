@@ -2,9 +2,11 @@ from extensions import db
 from functools import wraps
 from .students import code_generator
 from datetime import datetime
+from flask_login import UserMixin
+from passlib.hash import pbkdf2_sha256
 
 
-class Admin(db.Model):
+class Admin(db.Model, UserMixin):
     __tablename__ = 'admin'
     # The id column is the primary key
     id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +26,7 @@ class Admin(db.Model):
     # The __repr__ method is used to print the object
     def __repr__(self):
         return '<Admin %r>' % self.email
+
 
 
 # This decorator is used to check if the logged-in user is an admin
