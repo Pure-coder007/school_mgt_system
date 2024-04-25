@@ -1,9 +1,10 @@
 from extensions import db
 from datetime import datetime
+from flask_login import UserMixin
 
 
 # This is the model for the courses
-class Course(db.Model):
+class Course(db.Model, UserMixin):
     __tablename__ = 'courses'
     # The id column is the primary key
     id = db.Column(db.Integer, primary_key=True)
