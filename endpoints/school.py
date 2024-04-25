@@ -1,4 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request
+from models import Admin
+from flask_login import login_required, current_user, login_user, logout_user
+from passlib.hash import pbkdf2_sha256 as hasher
 
 school = Blueprint('school', __name__)
 
@@ -20,13 +23,17 @@ def login():
         password = request.form.get('password')
 
         if not login_code or not password:
-            session['alert'] = 'Please fill all the fields'
-            session['bg_color'] = 'danger'
-            return redirect(url_for('school.login'))
+            alert = 'Please fill all the fields'
+            bg_color = 'danger'
+            return render_template('login.html', alert=alert, bg_color=bg_color, login_code=login_code,
+                                   password=password)
 
-        if login_code == 'SCHOOL' and password == 'school':
+        admin = Admin.query.filter_by(adm_id=login_code).first()
+
+        if admin and hasher.verify(password, admin.password):
             session['alert'] = 'Login successful'
             session['bg_color'] = 'success'
+            login_user(admin)
             return redirect(url_for('school.dashboard'))
         alert = 'Invalid login code or password'
         bg_color = 'danger'
@@ -35,5 +42,17 @@ def login():
 
 
 @school.route('/dashboard', methods=['GET'])
+@login_required
 def dashboard():
-    return render_template('admin_templates/home.html')
+    alert = session.pop('alert', None)
+    bg_color = session.pop('bg_color', None)
+    return render_template('admin_templates/home.html', alert=alert, bg_color=bg_color)
+
+
+@school.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    session['alert'] = 'Logout successful'
+    session['bg_color'] = 'success'
+    return redirect(url_for('school.landing_page'))
