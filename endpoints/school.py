@@ -27,7 +27,7 @@ def login():
         if login_code == 'SCHOOL' and password == 'school':
             session['alert'] = 'Login successful'
             session['bg_color'] = 'success'
-            return redirect(url_for('school.landing_page'))
+            return redirect(url_for('school.dashboard'))
         alert = 'Invalid login code or password'
         bg_color = 'danger'
         return render_template('login.html', alert=alert, bg_color=bg_color, login_code=login_code, password=password)
