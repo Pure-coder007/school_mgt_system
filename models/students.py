@@ -3,6 +3,7 @@ from extensions import db
 from passlib.hash import pbkdf2_sha256
 import random
 from datetime import datetime
+from flask_login import UserMixin
 
 
 # function to hash the default password
@@ -28,7 +29,7 @@ def code_generator(prefix: str):
 
 
 # This is the model for the students
-class Student(db.Model):
+class Student(db.Model, UserMixin):
     __tablename__ = 'students'
     # The id column is the primary key
     id = db.Column(db.Integer, primary_key=True)
