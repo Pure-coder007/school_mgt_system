@@ -1,8 +1,9 @@
-from ..extensions import db
+from extensions import db
+from flask_login import UserMixin
 
 
 # This is the model for the registered courses by students
-class CourseRegistered(db.Model):
+class CourseRegistered(db.Model, UserMixin):
     __tablename__ = 'course_registered'
     # The id column is the primary key
     id = db.Column(db.Integer, primary_key=True)
