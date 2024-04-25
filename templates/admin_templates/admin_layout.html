@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for sidebar sliding animation */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #333;
+            color: white;
+            transition: 0.3s;
+            z-index: 999;
+        }
+
+        .content {
+            margin-left: 250px;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -250px;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="p-3">
+            <h4>Sidebar</h4>
+            <p>Links or additional content here...</p>
+            <button class="btn btn-primary d-md-none" id="closeSidebar">Close Sidebar</button>
+        </div>
+    </div>
+
+    <div class="content" id="content">
+        <div class="p-3">
+            <button class="btn btn-primary d-md-none" id="openSidebar">Open Sidebar</button>
+            <!-- Profile and Academic Details -->
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const openSidebarBtn = document.getElementById('openSidebar');
+        const closeSidebarBtn = document.getElementById('closeSidebar');
+
+        openSidebarBtn.addEventListener('click', function() {
+            sidebar.style.left = '0';
+        });
+
+        closeSidebarBtn.addEventListener('click', function() {
+            sidebar.style.left = '-250px';
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                sidebar.style.left = '0';
+            } else {
+                sidebar.style.left = '-250px';
+            }
+        });
+
+        if (window.innerWidth >= 768) {
+            sidebar.style.left = '0';
+        } else {
+            sidebar.style.left = '-250px';
+        }
+    </script>
+</body>
+</html>
