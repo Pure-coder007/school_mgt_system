@@ -28,7 +28,12 @@ def login():
             session['alert'] = 'Login successful'
             session['bg_color'] = 'success'
             return redirect(url_for('school.landing_page'))
-        session['alert'] = 'Invalid login code or password'
-        session['bg_color'] = 'danger'
-        return redirect(url_for('school.login'))
+        alert = 'Invalid login code or password'
+        bg_color = 'danger'
+        return render_template('login.html', alert=alert, bg_color=bg_color, login_code=login_code, password=password)
     return render_template('login.html', alert=alert, bg_color=bg_color)
+
+
+@school.route('/dashboard', methods=['GET'])
+def dashboard():
+    return render_template('student_dashboard.html')
