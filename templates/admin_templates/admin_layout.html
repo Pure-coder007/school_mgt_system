@@ -82,14 +82,14 @@
         <div class="p-3">
             <!-- LINKS -->
             <div class="d-flex flex-column">
-            <a href="" class="bg-white text-dark p-3 sidemenu_link">
+            <a href="{{url_for('admin.admin_dashboard')}}" class="{% if admin_dashboard %} bg-white text-dark {% endif %} p-3 sidemenu_link">
                 <i class="fas fa-user"></i> Profile</a>
             <!-- for students -->
-            <a href="" class="p-3 sidemenu_link">
+            <a href="{{url_for('admin.student_quarters')}}" class="p-3 sidemenu_link {% if student_quarters %} bg-white text-dark {% endif %}">
                 <i class="fas fa-user-graduate"></i> Students</a>
             
                 <!-- for teams -->
-            <a href="" class="p-3 sidemenu_link">
+            <a href="{{url_for('admin.teams')}}" class="p-3 sidemenu_link {% if teams %} bg-white text-dark {% endif %}">
                 <i class="fas fa-user-shield"></i> Teams</a>
 
                 <!-- for courses -->
