@@ -35,3 +35,12 @@ def teams():
     alert = session.pop('alert', None)
     bg_color = session.pop('bg_color', None)
     return render_template('admin_templates/teams.html', alert=alert, bg_color=bg_color, teams=True)
+
+
+# courses
+@admin.route('/courses', methods=['GET', 'POST'])
+@login_required
+def courses():
+    alert = session.pop('alert', None)
+    bg_color = session.pop('bg_color', None)
+    return render_template('admin_templates/courses.html', alert=alert, bg_color=bg_color, courses=True)
