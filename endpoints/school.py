@@ -34,19 +34,11 @@ def login():
             session['alert'] = 'Login successful'
             session['bg_color'] = 'success'
             login_user(admin)
-            return redirect(url_for('school.dashboard'))
+            return redirect(url_for('admin.admin_dashboard'))
         alert = 'Invalid login code or password'
         bg_color = 'danger'
         return render_template('login.html', alert=alert, bg_color=bg_color, login_code=login_code, password=password)
     return render_template('login.html', alert=alert, bg_color=bg_color)
-
-
-@school.route('/dashboard', methods=['GET'])
-@login_required
-def dashboard():
-    alert = session.pop('alert', None)
-    bg_color = session.pop('bg_color', None)
-    return render_template('admin_templates/home.html', alert=alert, bg_color=bg_color)
 
 
 @school.route('/logout')
