@@ -8,6 +8,10 @@
         /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
         box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
     }
+
+    .row p{
+        font-size: .8rem;
+    }
 </style>
 
 <div class="row">
@@ -69,144 +73,51 @@
             <div class="card-header">
                 <span>Students</span>
                 <span class="float-end">
-                    <a href="" class="btn btn-info text-dark badge fw-normal">View All</a>
+                    <a href="{{url_for('admin.student_quarters')}}" class="btn btn-info text-dark badge fw-normal" style="font-size: .7rem;">View All</a>
                 </span>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table no-wrap user-table mb-0">
-                                  <thead>
+                        <div class="table-responsive">
+                            <table class="table no-wrap user-table mb-0">
+                                <thead>
                                     <tr>
-                                      <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
-                                      <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
-                                      <th scope="col" class="border-0 text-uppercase font-medium">Occupation</th>
-                                      <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
-                                      <th scope="col" class="border-0 text-uppercase font-medium">Added</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium pl-4" style="font-size: .9rem;">#</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Name</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Occupation</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Email</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Added</th>
                                     </tr>
-                                  </thead>
-                                  <tbody>
+                                </thead>
+                                <tbody>
+                                    {% for i in range(5) %}
                                     <tr>
-                                      <td class="pl-4">1</td>
-                                      <td>
-                                          <h5 class="font-medium mb-0">Daniel Kristeen</h5>
-                                          <span class="text-muted">Texas, Unitedd states</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">Visual Designer</span><br>
-                                          <span class="text-muted">Past : teacher</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">daniel@website.com</span><br>
-                                          <span class="text-muted">999 - 444 - 555</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">15 Mar 1988</span><br>
-                                          <span class="text-muted">10: 55 AM</span>
-                                      </td>
+                                        <td class="pl-4" style="font-size: .8rem;">{{i+1}}</td>
+                                        <td>
+                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">Daniel Kristeen</h5>
+                                            <span class="text-muted" style="font-size: .8rem;">Texas, United states</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted" style="font-size: .8rem;">Visual Designer</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">Past : teacher</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted" style="font-size: .8rem;">daniel@website.com</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">999 - 444 - 555</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted" style="font-size: .8rem;">15 Mar 1988</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">10: 55 AM</span>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                      <td class="pl-4">2</td>
-                                      <td>
-                                          <h5 class="font-medium mb-0">Emma Smith</h5>
-                                          <span class="text-muted">Texas, Unitedd states</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">Visual Designer</span><br>
-                                          <span class="text-muted">Past : teacher</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">daniel@website.com</span><br>
-                                          <span class="text-muted">999 - 444 - 555</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">15 Mar 1855</span><br>
-                                          <span class="text-muted">10: 00 AM</span>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td class="pl-4">3</td>
-                                      <td>
-                                          <h5 class="font-medium mb-0">Olivia Johnson</h5>
-                                          <span class="text-muted">Texas, Unitedd states</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">Visual Designer</span><br>
-                                          <span class="text-muted">Past : teacher</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">daniel@website.com</span><br>
-                                          <span class="text-muted">999 - 444 - 555</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">17 Aug 1988</span><br>
-                                          <span class="text-muted">12: 55 AM</span>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td class="pl-4">4</td>
-                                      <td>
-                                          <h5 class="font-medium mb-0">Isabella Williams</h5>
-                                          <span class="text-muted">Texas, Unitedd states</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">Visual Designer</span><br>
-                                          <span class="text-muted">Past : teacher</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">daniel@website.com</span><br>
-                                          <span class="text-muted">999 - 444 - 555</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">26 Mar 1999</span><br>
-                                          <span class="text-muted">10: 55 AM</span>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td class="pl-4">5</td>
-                                      <td>
-                                          <h5 class="font-medium mb-0">Sophia Jones</h5>
-                                          <span class="text-muted">Texas, Unitedd states</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">Visual Designer</span><br>
-                                          <span class="text-muted">Past : teacher</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">daniel@website.com</span><br>
-                                          <span class="text-muted">999 - 444 - 555</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">16 Aug 2001</span><br>
-                                          <span class="text-muted">10: 55 AM</span>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td class="pl-4">6</td>
-                                      <td>
-                                          <h5 class="font-medium mb-0">Charlotte Brown</h5>
-                                          <span class="text-muted">Texas, Unitedd states</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">Visual Designer</span><br>
-                                          <span class="text-muted">Past : teacher</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">daniel@website.com</span><br>
-                                          <span class="text-muted">999 - 444 - 555</span>
-                                      </td>
-                                      <td>
-                                          <span class="text-muted">15 Mar 1988</span><br>
-                                          <span class="text-muted">10: 55 AM</span>
-                                      </td>
-                                      <td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                            </div>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
