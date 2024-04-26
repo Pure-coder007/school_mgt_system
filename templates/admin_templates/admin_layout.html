@@ -97,18 +97,18 @@
                 <i class="fas fa-book"></i> Courses</a>
             </div>
 
-            <a class="p-2 sidemenu_link text-dark position-fixed bottom-0 mb-5 h5" data-bs-toggle="modal" 
+            <a class="p-2 sidemenu_link text-white position-fixed bottom-0 mb-5 h5" data-bs-toggle="modal" 
             data-bs-target="#exampleModall" style="font-size: .75rem; cursor: pointer; background: rgb(227, 107, 107);">
                 <!-- logout icon -->
                 <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
-            <button class="btn btn-primary d-md-none" id="closeSidebar">Close Sidebar</button>
+            <button class="btn btn-info d-md-none position-absolute top-0 end-0 mx-2" id="closeSidebar"><i class="fas fa-times"></i></button>
         </div>
     </div>
 
     <div class="content" id="content">
         <div class="p-3">
-            <button class="btn btn-primary d-md-none" id="openSidebar">Open Sidebar</button>
+            <button class="btn btn-info d-md-none" id="openSidebar"><i class="fas fa-bars"></i></button>
             <!-- Profile and Academic Details -->
             {% block content %}{% endblock content %}
         </div>
@@ -119,7 +119,7 @@
     {% if alert %}
     <div class="toast align-items-center show fade text-white {% if bg_color %} bg-{{bg_color}} {% else %} bg-info {% endif %} border-0 position-fixed top-0 end-0"
         role="alert" data-bs-autohide="true" aria-live="polite" aria-atomic="true" data-bs-animation="true"
-        style="z-index: 99; margin-top: 5rem; transform: translateX(100%); transition: transform 4s ease-in-out;">
+        style="z-index: 99; margin-top: 5rem; transform: translateX(100%); transition: transform 2s ease-in-out;">
         <div class="d-flex">
             <div class="toast-body" style="font-size: 1rem;">
                 {{alert}}
