@@ -80,6 +80,14 @@
 <body>
     <div class="sidebar bg-info" id="sidebar">
         <div class="p-3">
+            <div class="mb-3 d-flex align-items-center">
+                <img
+            src="{{ url_for('static', filename='logo2.png') }}"
+            alt="company's logo"
+            style="width: 2.7rem;"
+          />
+          <!-- <span class='logo-text text-white' style="font-size: 1.2rem;">&nbsp;ACA<span class="text-white">DEMIA</span></span> -->
+            </div>
             <!-- LINKS -->
             <div class="d-flex flex-column">
             <a href="{{url_for('admin.admin_dashboard')}}" class="{% if admin_dashboard %} bg-white text-dark {% endif %} p-3 sidemenu_link">
