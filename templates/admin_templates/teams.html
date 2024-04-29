@@ -11,7 +11,7 @@
                 <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
                     <h3>Add Moderator</h3>
                     <div class="card">
-                        <form class="form-card" onsubmit="event.preventDefault()">
+                        <form action="" method="post" class="form-card">
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">First name<span class="text-danger">
@@ -29,7 +29,7 @@
                                         onblur="validate(3)"> </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">Phone number<span class="text-danger">
-                                            *</span></label> <input type="text" id="mob" name="mob" placeholder=""  style="font-size: .8rem !important;"
+                                            *</span></label> <input type="text" id="mob" name="phone" placeholder=""  style="font-size: .8rem !important;"
                                         onblur="validate(4)"> </div>
                             </div>
                             <div class="row justify-content-between text-left">
@@ -52,7 +52,7 @@
                                         <label class=" mx-1" for="invalidCheck2">
                                             Super admin?
                                         </label>
-                                        <input class="" type="checkbox" value="" id="invalidCheck2">
+                                        <input class="" name="is_superadmin" type="checkbox" value="yes" id="invalidCheck2">
                                     </div>
                                 </div>
                             <div class="row justify-content-end">
