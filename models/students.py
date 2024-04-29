@@ -4,6 +4,7 @@ from passlib.hash import pbkdf2_sha256
 import random
 from datetime import datetime
 from flask_login import UserMixin
+from utils import hexid
 
 
 # function to hash the default password
@@ -32,7 +33,7 @@ def code_generator(prefix: str):
 class Student(db.Model, UserMixin):
     __tablename__ = 'students'
     # The id column is the primary key
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(50), default=hexid, primary_key=True, index=True)
     # the first_name column
     first_name = db.Column(db.String(80), nullable=False)
     # the last_name column
