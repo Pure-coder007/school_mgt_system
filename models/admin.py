@@ -68,3 +68,25 @@ def add_roles():
         db.session.add(new_role)
     db.session.commit()
     return True
+
+
+def get_roles():
+    print("getting roles")
+    roles = Role.query.all()
+    if not roles:
+        add_roles()
+        roles = Role.query.all()
+    return [{"id": role.id, "name": role.name} for role in roles]
+
+# def create_admin():
+#     admin = Admin(
+#         first_name="Olawale",
+#         last_name="Michael",
+#         email="admin@localhost",
+#         password=pbkdf2_sha256.hash("admin"),
+#         is_superadmin=True,
+#         role_id=Role.query.filter_by(name="admin").first().id
+#     )
+#     db.session.add(admin)
+#     db.session.commit()
+#     return True
