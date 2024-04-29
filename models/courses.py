@@ -1,13 +1,14 @@
 from extensions import db
 from datetime import datetime
 from flask_login import UserMixin
+from utils import hexid
 
 
 # This is the model for the courses
 class Course(db.Model, UserMixin):
     __tablename__ = 'courses'
     # The id column is the primary key
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(50), default=hexid, primary_key=True, index=True)
     # the course_title column
     course_title = db.Column(db.String(100), nullable=False)
     # the course_code column
