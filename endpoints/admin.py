@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session
+from flask import Blueprint, render_template, redirect, url_for, session, request
 from flask_login import login_required
 from models import get_roles
 
@@ -36,6 +36,17 @@ def teams():
     alert = session.pop('alert', None)
     bg_color = session.pop('bg_color', None)
     roles = get_roles()
+    if request.method == 'POST':
+        first_name = request.form.get('fname')
+        last_name = request.form.get('lname')
+        email = request.form.get('email')
+        phone_number = request.form.get('phone')
+        role = request.form.get('role')
+        is_superadmin = request.form.get('is_superadmin')
+
+        print("first_name: ", first_name, " last_name: ", last_name, " email: ", email,
+              " phone_number: ", phone_number, " role: ", role, " is_superadmin: ", is_superadmin)
+
     return render_template('admin_templates/teams.html',
                            alert=alert, bg_color=bg_color, teams=True, roles=roles)
 
