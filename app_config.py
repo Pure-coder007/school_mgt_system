@@ -2,7 +2,7 @@ from extensions import db, migrate, cors, login_manager
 from flask import Flask
 from config import config_object
 from endpoints import admin as admin_blueprint, school as school_blueprint
-from models import Admin, Course, Student, CourseRegistered
+from models import Admin, Course, Student, CourseRegistered, Role
 
 
 def create_app(config=config_object["development"]):
@@ -16,8 +16,8 @@ def create_app(config=config_object["development"]):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    with app.app_context():
-        db.create_all()
+    # with app.app_context():
+    #     db.create_all()
 
     @login_manager.user_loader
     def load_user(user_id):
