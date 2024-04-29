@@ -33,6 +33,7 @@ class Admin(db.Model, UserMixin):
     # the email column is unique and not nullable
     email = db.Column(db.String(120), unique=True, nullable=False)
     is_superadmin = db.Column(db.Boolean, default=False)
+    phone_number = db.Column(db.String(50), nullable=True)
     role_id = db.Column(db.String(50), db.ForeignKey('role.id'), nullable=False)
     # the password column is not nullable
     password = db.Column(db.Text, nullable=False)
