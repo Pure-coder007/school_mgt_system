@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, session
 from flask_login import login_required
+from models import get_roles
 
 admin = Blueprint('admin', __name__)
 
@@ -34,7 +35,9 @@ def admin_dashboard():
 def teams():
     alert = session.pop('alert', None)
     bg_color = session.pop('bg_color', None)
-    return render_template('admin_templates/teams.html', alert=alert, bg_color=bg_color, teams=True)
+    roles = get_roles()
+    return render_template('admin_templates/teams.html',
+                           alert=alert, bg_color=bg_color, teams=True, roles=roles)
 
 
 # courses
