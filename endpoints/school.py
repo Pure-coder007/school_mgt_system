@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request
-from models import Admin
+from models import (Admin, get_roles,
+                    # create_admin
+                    )
 from flask_login import login_required, current_user, login_user, logout_user
 from passlib.hash import pbkdf2_sha256 as hasher
 
@@ -8,6 +10,8 @@ school = Blueprint('school', __name__)
 
 @school.route('/', methods=['GET'])
 def landing_page():
+    # print(get_roles())
+    # print(create_admin())
     alert = session.pop('alert', None)
     bg_color = session.pop('bg_color', None)
     return render_template('index.html', alert=alert, bg_color=bg_color)
