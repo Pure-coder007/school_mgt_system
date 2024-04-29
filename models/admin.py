@@ -37,6 +37,7 @@ class Admin(db.Model, UserMixin):
     role_id = db.Column(db.String(50), db.ForeignKey('role.id'), nullable=False)
     # the password column is not nullable
     password = db.Column(db.Text, nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.now)
 
     # The __repr__ method is used to print the object
     def __repr__(self):
