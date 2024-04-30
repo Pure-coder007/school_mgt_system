@@ -16,49 +16,56 @@
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">First name<span class="text-danger">
                                             *</span></label> <input type="text" id="fname" name="fname"
-                                        placeholder="Enter your first name" value="{{first_name}}" style="font-size: .8rem !important;" onblur="validate(1)"> </div>
+                                        placeholder="Enter your first name" value="{{first_name}}"
+                                        style="font-size: .8rem !important;" onblur="validate(1)"> </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">Last name<span class="text-danger">
                                             *</span></label> <input type="text" id="lname" name="lname"
-                                        placeholder="Enter your last name" value="{{last_name}}"  style="font-size: .8rem !important;" onblur="validate(2)"> </div>
+                                        placeholder="Enter your last name" value="{{last_name}}"
+                                        style="font-size: .8rem !important;" onblur="validate(2)"> </div>
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">Email<span class="text-danger">
-                                            *</span></label> <input type="text" id="email" name="email" placeholder="Enter your email" value="{{email}}" style="font-size: .8rem !important;"
-                                        onblur="validate(3)"> </div>
+                                            *</span></label> <input type="text" id="email" name="email"
+                                        placeholder="Enter your email" value="{{email}}"
+                                        style="font-size: .8rem !important;" onblur="validate(3)"> </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">Phone number<span class="text-danger">
-                                            *</span></label> <input type="text" id="mob" name="phone" placeholder="Enter your phone number" value="{{phone_number}}"  style="font-size: .8rem !important;"
-                                        onblur="validate(4)"> </div>
+                                            *</span></label> <input type="text" id="mob" name="phone"
+                                        placeholder="Enter your phone number" value="{{phone_number}}"
+                                        style="font-size: .8rem !important;" onblur="validate(4)"> </div>
                             </div>
                             <div class="row justify-content-between text-left">
 
-                                        <div class="form-group col-sm-12 flex-column d-flex"> <label
-                                            class="form-control-label px-3 my-2">Role<span class="text-danger">
-                                                *</span></label>
+                                <div class="form-group col-sm-12 flex-column d-flex"> <label
+                                        class="form-control-label px-3 my-2">Role<span class="text-danger">
+                                            *</span></label>
 
-            
-                                            <select name="role" id="role" class="form-control py-2" style="font-size: .9rem !important;" onblur="validate(7)">
-                                                <option value="" selected disabled>Role</option>
-                                                {% for role in roles %}
-                                                <option value="{{ role.id }}" {% if role.id == selected_role %} selected {% endif %} class="form-control">{{ role.name.title() }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            </div>
-                            </div>
-                                <div>
-                                    <!-- checkbox -->
-                                    <div class="d-flex align-items-center justify-content-center my-3">
-                                        <label class=" mx-1" for="invalidCheck2">
-                                            Super admin?
-                                        </label>
-                                        <input class="" name="is_superadmin" type="checkbox" value="yes" id="invalidCheck2">
-                                    </div>
+
+                                    <select name="role" id="role" class="form-control py-2"
+                                        style="font-size: .9rem !important;" onblur="validate(7)">
+                                        <option value="" selected disabled>Role</option>
+                                        {% for role in roles %}
+                                        <option value="{{ role.id }}" {% if role.id==selected_role %} selected {% endif
+                                            %} class="form-control">{{ role.name.title() }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
-                            <div class="row justify-content-end">
-                                <div class="form-group col-sm-12"> <button type="submit" style="font-size: .8rem !important;"
-                                        class="btn-block btn-info">Submit</button> </div>
+                            </div>
+                            <div id="checkbox" style="display: none !important;">
+                                <!-- checkbox -->
+                                <div class="d-flex align-items-center justify-content-center my-3">
+                                    <label class=" mx-1" for="invalidCheck2">
+                                        Super admin?
+                                    </label>
+                                    <input class="" name="is_superadmin" type="checkbox" value="yes" id="invalidCheck2">
+                                </div>
+                            </div>
+                            <div class="row justify-content-end mt-2">
+                                <div class="form-group col-sm-12"> <button type="submit"
+                                        style="font-size: .8rem !important;" class="btn-block btn-info">Submit</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -81,13 +88,20 @@
                             <table class="table no-wrap user-table mb-0">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="border-0 text-uppercase font-medium pl-4" style="font-size: .9rem;">#</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Name</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Code</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Email</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Date</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Super</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Manage</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium pl-4"
+                                            style="font-size: .9rem;">#</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium"
+                                            style="font-size: .9rem;">Name</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium"
+                                            style="font-size: .9rem;">Code</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium"
+                                            style="font-size: .9rem;">Email</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium"
+                                            style="font-size: .9rem;">Date</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium"
+                                            style="font-size: .9rem;">Super</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium"
+                                            style="font-size: .9rem;">Manage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,28 +109,34 @@
                                     <tr>
                                         <td class="pl-4" style="font-size: .8rem;">{{ loop.index }}</td>
                                         <td>
-                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">{{team.last_name}} {{team.first_name}}</h5>
+                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">{{team.last_name}}
+                                                {{team.first_name}}</h5>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">{{team.adm_id}}</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">{{team.role.title()}}</span>
+                                            <span class="text-muted"
+                                                style="font-size: .8rem;">{{team.adm_id}}</span><br>
+                                            <span class="text-muted"
+                                                style="font-size: .8rem;">{{team.role.title()}}</span>
                                         </td>
                                         <td>
                                             <span class="text-muted" style="font-size: .8rem;">{{team.email}}</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">{{team.phone_number}}</span>
+                                            <span class="text-muted"
+                                                style="font-size: .8rem;">{{team.phone_number}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">{{team.date_created}}</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">{{team.time_created}}</span>
+                                            <span class="text-muted"
+                                                style="font-size: .8rem;">{{team.date_created}}</span><br>
+                                            <span class="text-muted"
+                                                style="font-size: .8rem;">{{team.time_created}}</span>
                                         </td>
                                         <td>
                                             <span class="text-muted" style="font-size: .8rem;">
-                                            <!-- super admin icon -->
-                                            {% if team.is_superadmin %}
-                                            <i class="fa fa-check" style="font-size: .8rem;"></i>
-                                            {% else %}
-                                            <i class="fa fa-times" style="font-size: .8rem;"></i>
-                                            {% endif %}
+                                                <!-- super admin icon -->
+                                                {% if team.is_superadmin %}
+                                                <i class="fa fa-check" style="font-size: .8rem;"></i>
+                                                {% else %}
+                                                <i class="fa fa-times" style="font-size: .8rem;"></i>
+                                                {% endif %}
                                             </span><br>
                                         </td>
                                         <td>
@@ -135,7 +155,7 @@
                                         </td>
                                     </tr>
                                     {% endfor %}
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -209,7 +229,7 @@
         color: #fff !important
     }
 
-    label{
+    label {
         font-size: .9rem;
     }
 
@@ -222,6 +242,30 @@
 </style>
 
 <script>
+    role = document.getElementById("role");
+checkbox = document.getElementById("checkbox");
+
+role.addEventListener("change", function () {
+    var selectedOption = role.options[role.selectedIndex];
+
+    // Get the displayed text of the selected option
+    var displayedText = selectedOption.text;
+
+    // Use displayedText as needed (e.g., log it to the console)
+    console.log(displayedText, "role");
+    
+    // Check if the displayed text matches the roles for which you want to reveal the checkbox
+    if (displayedText === "Admin" || displayedText === "Manager") {
+        console.log("yes");
+        checkbox.style.display = "block";
+    } else {
+        console.log("no");
+        checkbox.style.display = "none";
+    }
+});
+
+
+
     function validate(val) {
         v1 = document.getElementById("fname");
         v2 = document.getElementById("lname");
@@ -303,6 +347,7 @@
 
         return flag;
     }
+
 </script>
 
 {% endblock content %}
