@@ -16,20 +16,20 @@
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">First name<span class="text-danger">
                                             *</span></label> <input type="text" id="fname" name="fname"
-                                        placeholder="Enter your first name" style="font-size: .8rem !important;" onblur="validate(1)"> </div>
+                                        placeholder="Enter your first name" value="{{first_name}}" style="font-size: .8rem !important;" onblur="validate(1)"> </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">Last name<span class="text-danger">
                                             *</span></label> <input type="text" id="lname" name="lname"
-                                        placeholder="Enter your last name"  style="font-size: .8rem !important;" onblur="validate(2)"> </div>
+                                        placeholder="Enter your last name" value="{{last_name}}"  style="font-size: .8rem !important;" onblur="validate(2)"> </div>
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">Email<span class="text-danger">
-                                            *</span></label> <input type="text" id="email" name="email" placeholder=" " style="font-size: .8rem !important;"
+                                            *</span></label> <input type="text" id="email" name="email" placeholder="Enter your email" value="{{email}}" style="font-size: .8rem !important;"
                                         onblur="validate(3)"> </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label
                                         class="form-control-label px-3">Phone number<span class="text-danger">
-                                            *</span></label> <input type="text" id="mob" name="phone" placeholder=""  style="font-size: .8rem !important;"
+                                            *</span></label> <input type="text" id="mob" name="phone" placeholder="Enter your phone number" value="{{phone_number}}"  style="font-size: .8rem !important;"
                                         onblur="validate(4)"> </div>
                             </div>
                             <div class="row justify-content-between text-left">
@@ -37,11 +37,12 @@
                                         <div class="form-group col-sm-12 flex-column d-flex"> <label
                                             class="form-control-label px-3 my-2">Role<span class="text-danger">
                                                 *</span></label>
+
             
                                             <select name="role" id="role" class="form-control py-2" style="font-size: .9rem !important;" onblur="validate(7)">
                                                 <option value="" selected disabled>Role</option>
                                                 {% for role in roles %}
-                                                <option value="{{ role.id }}" class="form-control">{{ role.name.title() }}</option>
+                                                <option value="{{ role.id }}" {% if role.id == selected_role %} selected {% endif %} class="form-control">{{ role.name.title() }}</option>
                                                 {% endfor %}
                                             </select>
                                             </div>
