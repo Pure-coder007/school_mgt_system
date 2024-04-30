@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request
 from flask_login import login_required
-from models import get_roles, Admin
+from models import get_roles, Admin, get_admins, get_lecturers, create_course, get_courses, Course
 from passlib.hash import pbkdf2_sha256 as hasher
 from extensions import db
 from utils import is_valid_email
@@ -40,6 +40,7 @@ def teams():
         alert = session.pop('alert', None)
         bg_color = session.pop('bg_color', None)
         roles = get_roles()
+        teams_list = get_admins()
         if request.method == 'POST':
             first_name = request.form.get('fname')
             last_name = request.form.get('lname')
@@ -106,7 +107,7 @@ def teams():
             return redirect(url_for('admin.teams'))
 
         return render_template('admin_templates/teams.html',
-                               alert=alert, bg_color=bg_color, teams=True, roles=roles)
+                               alert=alert, bg_color=bg_color, teams=True, roles=roles, teams_lists=teams_list)
     except Exception as e:
         print(e, "error@teams")
         db.session.rollback()
@@ -121,4 +122,39 @@ def teams():
 def courses():
     alert = session.pop('alert', None)
     bg_color = session.pop('bg_color', None)
-    return render_template('admin_templates/courses.html', alert=alert, bg_color=bg_color, courses=True)
+    lecturers = get_lecturers()
+    all_courses = get_courses()
+    if request.method == "POST":
+        course_unit = request.form.get('course_unit')
+        course_code = request.form.get('course_code')
+        lecturer = request.form.get('lecturer')
+        course_title = request.form.get('course_title')
+
+        if not course_unit or not course_code or not course_title:
+            alert = 'Please fill all the fields'
+            bg_color = 'danger'
+            return render_template('admin_templates/courses.html',
+                                   alert=alert, bg_color=bg_color,
+                                   courses=True, lecturers=lecturers, course_unit=course_unit,
+                                   course_code=course_code, course_title=course_title, selected_lecturer=lecturer, all_courses=all_courses)
+
+        print("course_unit: ", course_unit, " course_code: ", course_code,
+              " course_title: ", course_title, " lecturer: ", lecturer)
+
+        course_exist = Course.query.filter_by(course_code=course_code).first()
+        if course_exist:
+            alert = 'Course already exist'
+            bg_color = 'danger'
+            return render_template('admin_templates/courses.html',
+                                   alert=alert, bg_color=bg_color,
+                                   courses=True, lecturers=lecturers, course_unit=course_unit,
+                                   course_code=course_code, course_title=course_title,
+                                   selected_lecturer=lecturer, all_courses=all_courses)
+
+        create_course(course_title, course_code, course_unit, lecturer)
+        session['alert'] = 'Course added successfully'
+        session['bg_color'] = 'success'
+        return redirect(url_for('admin.courses'))
+    return render_template('admin_templates/courses.html',
+                           alert=alert, bg_color=bg_color,
+                           courses=True, lecturers=lecturers, all_courses=all_courses)
