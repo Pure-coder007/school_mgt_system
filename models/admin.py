@@ -5,6 +5,11 @@ from datetime import datetime
 from flask_login import UserMixin
 from passlib.hash import pbkdf2_sha256
 from utils import hexid
+from sqlalchemy import desc
+
+
+def generate_admin_id():
+    return code_generator(f'ADMIN-{datetime.now().year}-')
 
 
 class Role(db.Model):
@@ -28,7 +33,7 @@ class Admin(db.Model, UserMixin):
     # the adm_id column is unique and not nullable
     # the default value is a function that generates a unique code
     adm_id = db.Column(db.String(50), unique=True, nullable=False,
-                       default=code_generator(f'ADMIN-{datetime.now().year}-')
+                       default=generate_admin_id
                        )
     # the email column is unique and not nullable
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -38,6 +43,8 @@ class Admin(db.Model, UserMixin):
     # the password column is not nullable
     password = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.now)
+
+    courses = db.relationship('Course', cascade="all, delete", backref='lecturer', lazy=True)
 
     # The __repr__ method is used to print the object
     def __repr__(self):
@@ -92,3 +99,35 @@ def get_roles():
 #     db.session.add(admin)
 #     db.session.commit()
 #     return True
+
+
+# get admins
+def get_admins():
+    admins = Admin.query.order_by(desc(Admin.date_created)).all()
+    return [
+        {
+            "id": admin.id,
+            "first_name": admin.first_name,
+            "last_name": admin.last_name,
+            "email": admin.email,
+            "phone_number": admin.phone_number,
+            "role": admin.role.name,
+            "is_superadmin": admin.is_superadmin,
+            "adm_id": admin.adm_id,
+            "date_created": admin.date_created.strftime("%d %b, %Y"),
+            "time_created": admin.date_created.strftime("%I:%M %p"),
+        } for admin in admins
+    ]
+
+
+# get admins that are lecturers by role
+def get_lecturers():
+    admin_lecturers = Admin.query.join(Role).filter(Role.name == "lecturer").all()
+    return [
+        {
+            "id": admin.id,
+            "first_name": admin.first_name,
+            "last_name": admin.last_name,
+            "email": admin.email,
+        } for admin in admin_lecturers
+    ]
