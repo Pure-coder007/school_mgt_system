@@ -83,40 +83,41 @@
                                     <tr>
                                         <th scope="col" class="border-0 text-uppercase font-medium pl-4" style="font-size: .9rem;">#</th>
                                         <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Name</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Occupation</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Code</th>
                                         <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Email</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Added</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Category</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Date</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Super</th>
                                         <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Manage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for i in range(5) %}
+                                    {% for team in teams_lists %}
                                     <tr>
-                                        <td class="pl-4" style="font-size: .8rem;">{{i+1}}</td>
+                                        <td class="pl-4" style="font-size: .8rem;">{{ loop.index }}</td>
                                         <td>
-                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">Daniel Kristeen</h5>
-                                            <span class="text-muted" style="font-size: .8rem;">Texas, United states</span>
+                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">{{team.last_name}} {{team.first_name}}</h5>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">Visual Designer</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">Past : teacher</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{team.adm_id}}</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">{{team.role.title()}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">daniel@website.com</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">999 - 444 - 555</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{team.email}}</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">{{team.phone_number}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">15 Mar 1988</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">10: 55 AM</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{team.date_created}}</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">{{team.time_created}}</span>
                                         </td>
                                         <td>
-                                            <select class="form-control category-select" style="font-size: .8rem;" id="exampleFormControlSelect1">
-                                                <option>Modulator</option>
-                                                <option>Admin</option>
-                                                <option>User</option>
-                                                <option>Subscriber</option>
-                                            </select>
+                                            <span class="text-muted" style="font-size: .8rem;">
+                                            <!-- super admin icon -->
+                                            {% if team.is_superadmin %}
+                                            <i class="fa fa-check" style="font-size: .8rem;"></i>
+                                            {% else %}
+                                            <i class="fa fa-times" style="font-size: .8rem;"></i>
+                                            {% endif %}
+                                            </span><br>
                                         </td>
                                         <td>
                                             <button type="button"
