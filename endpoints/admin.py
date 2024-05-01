@@ -130,41 +130,53 @@ def teams():
 @admin.route('/courses', methods=['GET', 'POST'])
 @login_required
 def courses():
-    alert = session.pop('alert', None)
-    bg_color = session.pop('bg_color', None)
-    lecturers = get_lecturers()
-    all_courses = get_courses()
-    if request.method == "POST":
-        course_unit = request.form.get('course_unit')
-        course_code = request.form.get('course_code')
-        lecturer = request.form.get('lecturer')
-        course_title = request.form.get('course_title')
+    try:
+        page = int(request.args.get('page', 1))
+        per_page = int(request.args.get('per_page', 5))
+        alert = session.pop('alert', None)
+        bg_color = session.pop('bg_color', None)
+        lecturers = get_lecturers()
+        all_courses, total_pages, total_items = get_courses(page, per_page)
+        if request.method == "POST":
+            course_unit = request.form.get('course_unit')
+            course_code = request.form.get('course_code')
+            lecturer = request.form.get('lecturer')
+            course_title = request.form.get('course_title')
 
-        if not course_unit or not course_code or not course_title:
-            alert = 'Please fill all the fields'
-            bg_color = 'danger'
-            return render_template('admin_templates/courses.html',
-                                   alert=alert, bg_color=bg_color,
-                                   courses=True, lecturers=lecturers, course_unit=course_unit,
-                                   course_code=course_code, course_title=course_title, selected_lecturer=lecturer, all_courses=all_courses)
+            if not course_unit or not course_code or not course_title:
+                alert = 'Please fill all the fields'
+                bg_color = 'danger'
+                return render_template('admin_templates/courses.html',
+                                       alert=alert, bg_color=bg_color,
+                                       courses=True, lecturers=lecturers, course_unit=course_unit,
+                                       course_code=course_code, course_title=course_title, selected_lecturer=lecturer,
+                                       all_courses=all_courses, total_pages=total_pages, total_items=total_items, page=page, per_page=per_page)
 
-        print("course_unit: ", course_unit, " course_code: ", course_code,
-              " course_title: ", course_title, " lecturer: ", lecturer)
+            print("course_unit: ", course_unit, " course_code: ", course_code,
+                  " course_title: ", course_title, " lecturer: ", lecturer)
 
-        course_exist = Course.query.filter_by(course_code=course_code).first()
-        if course_exist:
-            alert = 'Course already exist'
-            bg_color = 'danger'
-            return render_template('admin_templates/courses.html',
-                                   alert=alert, bg_color=bg_color,
-                                   courses=True, lecturers=lecturers, course_unit=course_unit,
-                                   course_code=course_code, course_title=course_title,
-                                   selected_lecturer=lecturer, all_courses=all_courses)
+            course_exist = Course.query.filter_by(course_code=course_code).first()
+            if course_exist:
+                alert = 'Course already exist'
+                bg_color = 'danger'
+                return render_template('admin_templates/courses.html',
+                                       alert=alert, bg_color=bg_color,
+                                       courses=True, lecturers=lecturers, course_unit=course_unit,
+                                       course_code=course_code, course_title=course_title,
+                                       selected_lecturer=lecturer, all_courses=all_courses,
+                                       total_pages=total_pages, total_items=total_items, page=page, per_page=per_page)
 
-        create_course(course_title, course_code, course_unit, lecturer)
-        session['alert'] = 'Course added successfully'
-        session['bg_color'] = 'success'
+            create_course(course_title, course_code, course_unit, lecturer)
+            session['alert'] = 'Course added successfully'
+            session['bg_color'] = 'success'
+            return redirect(url_for('admin.courses'))
+        return render_template('admin_templates/courses.html',
+                               alert=alert, bg_color=bg_color,
+                               courses=True, lecturers=lecturers, all_courses=all_courses,
+                               total_pages=total_pages, total_items=total_items, page=page, per_page=per_page)
+    except Exception as e:
+        print(e, "error@courses")
+        db.session.rollback()
+        session['alert'] = 'Network Error'
+        session['bg_color'] = 'danger'
         return redirect(url_for('admin.courses'))
-    return render_template('admin_templates/courses.html',
-                           alert=alert, bg_color=bg_color,
-                           courses=True, lecturers=lecturers, all_courses=all_courses)
