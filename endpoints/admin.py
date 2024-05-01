@@ -37,10 +37,12 @@ def admin_dashboard():
 @login_required
 def teams():
     try:
+        page = int(request.args.get('page', 1))
+        per_page = int(request.args.get('per_page', 5))
         alert = session.pop('alert', None)
         bg_color = session.pop('bg_color', None)
         roles = get_roles()
-        teams_list = get_admins()
+        teams_list, total_pages, total_items = get_admins(page, per_page)
         if request.method == 'POST':
             first_name = request.form.get('fname')
             last_name = request.form.get('lname')
@@ -60,7 +62,9 @@ def teams():
                                        teams=True, roles=roles,
                                        first_name=first_name, last_name=last_name,
                                        email=email, phone_number=phone_number,
-                                       selected_role=role, is_superadmin=is_superadmin)
+                                       selected_role=role, is_superadmin=is_superadmin,
+                                       total_pages=total_pages, total_items=total_items, page=page, per_page=per_page,
+                                       teams_lists=teams_list)
 
             if not is_valid_email(email):
                 alert = 'Invalid email'
@@ -68,7 +72,8 @@ def teams():
                 return render_template('admin_templates/teams.html',
                                        alert=alert, bg_color=bg_color,
                                        teams=True, roles=roles, first_name=first_name, last_name=last_name, email=email,
-                                       phone_number=phone_number, selected_role=role, is_superadmin=is_superadmin)
+                                       phone_number=phone_number, selected_role=role, is_superadmin=is_superadmin,
+                                       total_pages=total_pages, total_items=total_items, teams_lists=teams_list,)
 
             email_exist = Admin.query.filter_by(email=email.lower()).first()
             if email_exist:
@@ -77,7 +82,9 @@ def teams():
                 return render_template('admin_templates/teams.html',
                                        alert=alert, bg_color=bg_color,
                                        teams=True, roles=roles, first_name=first_name, last_name=last_name, email=email,
-                                       phone_number=phone_number, selected_role=role, is_superadmin=is_superadmin)
+                                       phone_number=phone_number, selected_role=role, is_superadmin=is_superadmin,
+                                       total_pages=total_pages, total_items=total_items, teams_lists=teams_list,
+                                       page=page, per_page=per_page)
 
             phone_exist = Admin.query.filter_by(phone_number=phone_number).first()
             if phone_exist:
@@ -86,7 +93,9 @@ def teams():
                 return render_template('admin_templates/teams.html',
                                        alert=alert, bg_color=bg_color,
                                        teams=True, roles=roles, first_name=first_name, last_name=last_name, email=email,
-                                       phone_number=phone_number, selected_role=role, is_superadmin=is_superadmin)
+                                       phone_number=phone_number, selected_role=role, is_superadmin=is_superadmin,
+                                       total_pages=total_pages, total_items=total_items, teams_lists=teams_list,
+                                       page=page, per_page=per_page)
 
             admin_instance = Admin(
                 first_name=first_name,
@@ -107,7 +116,8 @@ def teams():
             return redirect(url_for('admin.teams'))
 
         return render_template('admin_templates/teams.html',
-                               alert=alert, bg_color=bg_color, teams=True, roles=roles, teams_lists=teams_list)
+                               alert=alert, bg_color=bg_color, teams=True, roles=roles, teams_lists=teams_list,
+                               total_pages=total_pages, total_items=total_items, page=page, per_page=per_page)
     except Exception as e:
         print(e, "error@teams")
         db.session.rollback()
