@@ -102,8 +102,10 @@ def get_roles():
 
 
 # get admins
-def get_admins():
-    admins = Admin.query.order_by(desc(Admin.date_created)).all()
+def get_admins(page, per_page):
+    admins = Admin.query.order_by(desc(Admin.date_created)).paginate(page=page, per_page=per_page, error_out=False)
+    total_pages = admins.pages
+    total_items = admins.total
     return [
         {
             "id": admin.id,
@@ -116,8 +118,8 @@ def get_admins():
             "adm_id": admin.adm_id,
             "date_created": admin.date_created.strftime("%d %b, %Y"),
             "time_created": admin.date_created.strftime("%I:%M %p"),
-        } for admin in admins
-    ]
+        } for admin in admins.items
+    ], total_pages, total_items
 
 
 # get admins that are lecturers by role
