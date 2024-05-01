@@ -47,8 +47,10 @@ def create_course(course_title, course_code, course_unit, teacher):
 
 
 # get courses
-def get_courses():
-    courses = Course.query.order_by(desc(Course.created_at)).all()
+def get_courses(page, per_page):
+    courses = Course.query.order_by(desc(Course.created_at)).paginate(page=page, per_page=per_page, error_out=False)
+    total_pages = courses.pages
+    total_items = courses.total
 
     return [
         {
@@ -58,5 +60,5 @@ def get_courses():
             'course_unit': course.course_unit,
             'created_at': course.created_at.strftime('%d-%b-%Y'),
             "lecturer": f"{course.lecturer.last_name} {course.lecturer.first_name}"
-        } for course in courses
-    ]
+        } for course in courses.items
+    ], total_pages, total_items
