@@ -43,7 +43,7 @@
                                             *</span></label>
 
 
-                                    <select name="role" id="role" class="form-control py-2"
+                                    <select name="role" id="role" class="form-control py-2 shadow-none"
                                         style="font-size: .9rem !important;" onblur="validate(7)">
                                         <option value="" selected disabled>Role</option>
                                         {% for role in roles %}
@@ -56,10 +56,10 @@
                             <div id="checkbox" style="display: none !important;">
                                 <!-- checkbox -->
                                 <div class="d-flex align-items-center justify-content-center my-3">
-                                    <label class=" mx-1" for="invalidCheck2">
+                                    <label class="form-check-label mx-2" for="invalidCheck2">
                                         Super admin?
                                     </label>
-                                    <input class="" name="is_superadmin" type="checkbox" value="yes" id="invalidCheck2">
+                                    <input class="form-check-input p-0 rounded-circle border-2" name="is_superadmin" type="checkbox" value="yes" id="invalidCheck2">
                                 </div>
                             </div>
                             <div class="row justify-content-end mt-2">
@@ -99,8 +99,6 @@
                                         <th scope="col" class="border-0 text-uppercase font-medium"
                                             style="font-size: .9rem;">Date</th>
                                         <th scope="col" class="border-0 text-uppercase font-medium"
-                                            style="font-size: .9rem;">Super</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium"
                                             style="font-size: .9rem;">Manage</th>
                                     </tr>
                                 </thead>
@@ -116,7 +114,7 @@
                                             <span class="text-muted"
                                                 style="font-size: .8rem;">{{team.adm_id}}</span><br>
                                             <span class="text-muted"
-                                                style="font-size: .8rem;">{{team.role.title()}}</span>
+                                                style="font-size: .8rem;">{{team.role.title()}} {% if team.is_superadmin %} &nbsp; <i class="fas fa-crown text-warning bg-dark p-1 rounded" style="font-size: .7rem;"></i> {% endif %}</span>
                                         </td>
                                         <td>
                                             <span class="text-muted" style="font-size: .8rem;">{{team.email}}</span><br>
@@ -128,16 +126,6 @@
                                                 style="font-size: .8rem;">{{team.date_created}}</span><br>
                                             <span class="text-muted"
                                                 style="font-size: .8rem;">{{team.time_created}}</span>
-                                        </td>
-                                        <td>
-                                            <span class="text-muted" style="font-size: .8rem;">
-                                                <!-- super admin icon -->
-                                                {% if team.is_superadmin %}
-                                                <i class="fa fa-check" style="font-size: .8rem;"></i>
-                                                {% else %}
-                                                <i class="fa fa-times" style="font-size: .8rem;"></i>
-                                                {% endif %}
-                                            </span><br>
                                         </td>
                                         <td>
                                             <button type="button"
@@ -296,6 +284,7 @@
         box-shadow: none !important;
         outline-width: 0
     }
+
 </style>
 
 <script>
