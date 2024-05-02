@@ -302,6 +302,8 @@
     role = document.getElementById("role");
 checkbox = document.getElementById("checkbox");
 
+checked_box = document.getElementById("invalidCheck2")
+
 role.addEventListener("change", function () {
     var selectedOption = role.options[role.selectedIndex];
 
@@ -312,12 +314,14 @@ role.addEventListener("change", function () {
     console.log(displayedText, "role");
     
     // Check if the displayed text matches the roles for which you want to reveal the checkbox
-    if (displayedText === "Admin" || displayedText === "Manager") {
+    if (displayedText === "Admin") {
         console.log("yes");
         checkbox.style.display = "block";
     } else {
         console.log("no");
         checkbox.style.display = "none";
+        // uncheck the checkbox
+        checked_box.checked = false;
     }
 });
 
