@@ -5,6 +5,7 @@ import random
 from datetime import datetime
 from flask_login import UserMixin
 from utils import hexid
+from sqlalchemy import desc
 
 
 # function to hash the default password
@@ -40,6 +41,8 @@ class Student(db.Model, UserMixin):
     last_name = db.Column(db.String(80), nullable=False)
     # the email column is unique and not nullable
     email = db.Column(db.String(120), unique=True, nullable=False)
+    # student phone number
+    phone = db.Column(db.String(20), nullable=False)
     # student_id column is unique and not nullable, this is the student's matriculation number
     # the default value is a function that generates a unique code with the prefix 'ACA' and the current year
     stud_id = db.Column(db.String(50), unique=True, nullable=False,
@@ -53,6 +56,8 @@ class Student(db.Model, UserMixin):
     # the changed_password column is not nullable, the default value is False
     # this column is used to check if the student has changed the default password
     changed_password = db.Column(db.Boolean, nullable=False, default=False)
+    # date
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     # the registered_courses column is a relationship with the CourseRegistered model
     registered_courses = db.relationship('CourseRegistered',
                                          cascade="all, delete", backref='student', lazy=True)
@@ -74,3 +79,9 @@ class Student(db.Model, UserMixin):
 #             abort(401, message="This is students arena")
 #         return func(*args, **kwargs)
 #     return wrapper
+
+
+# get all students
+def get_students(page, per_page):
+    students = Student.query.order_by(desc(Student.created_at)).paginate(page=page, per_page=per_page, error_out=False)
+    return students
