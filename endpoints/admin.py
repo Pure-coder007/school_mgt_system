@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request
 from flask_login import login_required
-from models import get_roles, Admin, get_admins, get_lecturers, create_course, get_courses, Course
+from models import (get_roles, Admin, get_admins,
+    get_students, get_lecturers, create_course, get_courses, Course)
 from passlib.hash import pbkdf2_sha256 as hasher
 from extensions import db
 from utils import is_valid_email
@@ -21,7 +22,12 @@ def get_admin():
 def student_quarters():
     alert = session.pop('alert', None)
     bg_color = session.pop('bg_color', None)
-    return render_template('admin_templates/student_quarters.html', alert=alert, bg_color=bg_color, student_quarters=True)
+    page = int(request.args.get('page', 1))
+    per_page = int(request.args.get('per_page', 5))
+    all_students = get_students(page, per_page)
+    return render_template('admin_templates/student_quarters.html',
+                           alert=alert, bg_color=bg_color,
+                           student_quarters=True, all_students=all_students)
 
 
 @admin.route('/admin_dashboard', methods=['GET'])
