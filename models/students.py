@@ -84,4 +84,43 @@ class Student(db.Model, UserMixin):
 # get all students
 def get_students(page, per_page):
     students = Student.query.order_by(desc(Student.created_at)).paginate(page=page, per_page=per_page, error_out=False)
-    return students
+    total_pages = students.pages
+    total_items = students.total
+    return [
+        {
+            "id": student.id,
+            "first_name": student.first_name,
+            "last_name": student.last_name,
+            "email": student.email,
+            "phone": student.phone,
+            "stud_id": student.stud_id,
+            "courses_registered": len(student.registered_courses),
+        } for student in students.items
+    ], total_pages, total_items
+
+
+# add students
+def add_student(first_name, last_name, email, phone):
+    try:
+        student = Student(
+            first_name=first_name,
+            last_name=last_name,
+            email=email.lower(),
+            phone=phone
+        )
+        db.session.add(student)
+        db.session.commit()
+        return True
+    except Exception as e:
+        print(e, "error@add_student")
+        db.session.rollback()
+        return False
+
+
+# email exist
+def email_exist(email):
+    return Student.query.filter_by(email=email).first()
+
+# phone exist
+def phone_exist(phone):
+    return Student.query.filter_by(phone=phone).first()
