@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from flask_login import login_required
 from models import (get_roles, Admin, get_admins,
                     get_students, get_lecturers, create_course, get_courses, Course,
-                    add_student, email_exist, phone_exist)
+                    add_student, email_exist, phone_exist, get_recent_students)
 from passlib.hash import pbkdf2_sha256 as hasher
 from extensions import db
 from utils import is_valid_email
@@ -110,7 +110,10 @@ def student_quarters():
 def admin_dashboard():
     alert = session.pop('alert', None)
     bg_color = session.pop('bg_color', None)
-    return render_template('admin_templates/home.html', alert=alert, bg_color=bg_color, admin_dashboard=True)
+    students = get_recent_students()
+    return render_template('admin_templates/home.html',
+                           alert=alert, bg_color=bg_color,
+                           admin_dashboard=True, students=students)
 
 
 # teams
