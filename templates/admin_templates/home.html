@@ -93,30 +93,28 @@
                                     <tr>
                                         <th scope="col" class="border-0 text-uppercase font-medium pl-4" style="font-size: .9rem;">#</th>
                                         <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Name</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Occupation</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Matric</th>
                                         <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Email</th>
                                         <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Added</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for i in range(5) %}
+                                    {% for student in students %}
                                     <tr>
-                                        <td class="pl-4" style="font-size: .8rem;">{{i+1}}</td>
+                                        <td class="pl-4" style="font-size: .8rem;">{{loop.index}}</td>
                                         <td>
-                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">Daniel Kristeen</h5>
-                                            <span class="text-muted" style="font-size: .8rem;">Texas, United states</span>
+                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">{{student.last_name}} {{student.first_name}}</h5>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">Visual Designer</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">Past : teacher</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.stud_id}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">daniel@website.com</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">999 - 444 - 555</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.email}}</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.phone}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">15 Mar 1988</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">10: 55 AM</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.date}}</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.time}}</span>
                                         </td>
                                     </tr>
                                     {% endfor %}
