@@ -121,6 +121,24 @@ def add_student(first_name, last_name, email, phone):
 def email_exist(email):
     return Student.query.filter_by(email=email).first()
 
+
 # phone exist
 def phone_exist(phone):
     return Student.query.filter_by(phone=phone).first()
+
+
+# get recent 5students
+def get_recent_students():
+    students = Student.query.order_by(desc(Student.created_at)).limit(5).all()
+    return [
+        {
+            "id": student.id,
+            "first_name": student.first_name,
+            "last_name": student.last_name,
+            "email": student.email,
+            "phone": student.phone,
+            "stud_id": student.stud_id,
+            "date": student.created_at.strftime("%d %b, %Y"),
+            "time": student.created_at.strftime("%I:%M %p"),
+        } for student in students
+    ]
