@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request
-from models import (Admin, get_roles,
+from models import (Admin, get_roles, Student
                     # create_admin
                     )
 from flask_login import login_required, current_user, login_user, logout_user
@@ -32,13 +32,16 @@ def login():
             return render_template('login.html', alert=alert, bg_color=bg_color, login_code=login_code,
                                    password=password)
 
-        admin = Admin.query.filter_by(adm_id=login_code).first()
+        user, user_type = (Admin.query.filter_by(adm_id=login_code).first(), "admin") if login_code.startswith("ADMIN") else \
+            (Student.query.filter_by(stud_id=login_code).first(), "student")
 
-        if admin and hasher.verify(password, admin.password):
+        if user and hasher.verify(password, user.password):
             session['alert'] = 'Login successful'
             session['bg_color'] = 'success'
-            login_user(admin)
-            return redirect(url_for('admin.admin_dashboard'))
+            login_user(user)
+            if user_type == "admin":
+                return redirect(url_for('admin.admin_dashboard'))
+            return redirect(url_for('student.student_dashboard'))
         alert = 'Invalid login code or password'
         bg_color = 'danger'
         return render_template('login.html', alert=alert, bg_color=bg_color, login_code=login_code, password=password)
