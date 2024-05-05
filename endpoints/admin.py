@@ -6,6 +6,7 @@ from models import (get_roles, Admin, get_admins,
 from passlib.hash import pbkdf2_sha256 as hasher
 from extensions import db
 from utils import is_valid_email
+from decorators import admin_required
 
 admin = Blueprint('admin', __name__)
 
@@ -19,6 +20,7 @@ def get_admin():
 
 # student_quarters
 @admin.route('/student_quarters', methods=['GET', 'POST'])
+@admin_required
 @login_required
 def student_quarters():
     try:
@@ -106,6 +108,7 @@ def student_quarters():
 
 
 @admin.route('/admin_dashboard', methods=['GET'])
+@admin_required
 @login_required
 def admin_dashboard():
     alert = session.pop('alert', None)
@@ -118,6 +121,7 @@ def admin_dashboard():
 
 # teams
 @admin.route('/teams', methods=['GET', 'POST'])
+@admin_required
 @login_required
 def teams():
     try:
@@ -212,6 +216,7 @@ def teams():
 
 # courses
 @admin.route('/courses', methods=['GET', 'POST'])
+@admin_required
 @login_required
 def courses():
     try:
