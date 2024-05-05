@@ -1,7 +1,7 @@
 from extensions import db, migrate, cors, login_manager
 from flask import Flask
 from config import config_object
-from endpoints import admin as admin_blueprint, school as school_blueprint
+from endpoints import admin as admin_blueprint, school as school_blueprint, student as student_blueprint
 from models import Admin, Course, Student, CourseRegistered, Role
 
 
@@ -28,5 +28,6 @@ def create_app(config=config_object["development"]):
 
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(school_blueprint)
+    app.register_blueprint(student_blueprint)
 
     return app
