@@ -12,3 +12,12 @@ def student_dashboard():
     bg_color = session.pop('bg_color', None)
     return render_template('student_templates/home.html',
                            student_dashboard=True, alert=alert, bg_color=bg_color)
+
+
+@student.route('/registered_courses', methods=['GET'])
+@login_required
+def registered_courses():
+    alert = session.pop('alert', None)
+    bg_color = session.pop('bg_color', None)
+    return render_template('student_templates/reg_courses.html',
+                           registered_courses=True, alert=alert, bg_color=bg_color)
