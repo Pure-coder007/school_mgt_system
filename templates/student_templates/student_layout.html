@@ -101,15 +101,16 @@
 
             <div>
 
-                
-                <a class="p-2 sidemenu_link text-white position-fixed bottom-0 mb-5 h5" data-bs-toggle="modal" 
+                <div class="d-flex position-fixed bottom-0 mb-5 h5">
+                <a class="p-2 sidemenu_link text-white" data-bs-toggle="modal" 
                 data-bs-target="#exampleModall" style="font-size: .75rem; cursor: pointer; background: rgb(227, 107, 107);">
                 <!-- logout icon -->
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
-            <a href="" class="p-2 sidemenu_link text-dark position-fixed bottom-0 mb-5 h5" style="margin-left: 10rem; background: rgb(251, 251, 251);">
-                <i class="fas fa-edit"></i> Edit
+            <a href="{{url_for('student.edit_profile')}}" class="p-2 sidemenu_link badge text-dark fw-normal" style="margin-left: .8rem; background: rgb(251, 251, 251); font-size: .8rem;">
+                <i class="fas fa-cog"></i> Settings
             </a>
+            </div>
         </div>
             <button class="btn btn-info d-md-none position-absolute top-0 end-0 mx-2" id="closeSidebar"><i class="fas fa-times"></i></button>
         </div>
