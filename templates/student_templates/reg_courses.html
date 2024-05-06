@@ -1,0 +1,105 @@
+{% extends 'student_templates/student_layout.html' %}
+
+
+{% block content %}
+
+<style>
+    .card {
+        /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
+        box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    }
+
+    .row p{
+        font-size: .8rem;
+    }
+</style>
+
+<div class="row">
+    <!-- User Profile Card and Academic Details -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                User Profile
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Phone Number</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{current_user.phone}}</p>
+                    </div>
+                  </div>
+                  <hr>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 d-none d-md-block">
+        <div class="card">
+            <div class="card-header">
+                GPA
+            </div>
+            <div class="card-body">
+                <!-- Academic Details content -->
+                <h1>{{current_user.gpa}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Registered Courses -->
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <span>Registered Courses</span>
+                <span class="float-end">
+                    <a href="{{url_for('admin.student_quarters')}}" class="btn btn-info text-white badge fw-normal" style="font-size: .9rem;">Register Course</a>
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table no-wrap user-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="border-0 text-uppercase font-medium pl-4" style="font-size: .9rem;">#</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Name</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Matric</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Email</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Added</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                    <tr>
+                                        <td class="pl-4" style="font-size: .8rem;">{{loop.index}}</td>
+                                        <td>
+                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">{{student.last_name}} {{student.first_name}}</h5>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.stud_id}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.email}}</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.phone}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.date}}</span><br>
+                                            <span class="text-muted" style="font-size: .8rem;">{{student.time}}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
