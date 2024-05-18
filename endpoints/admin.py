@@ -32,8 +32,8 @@ def get_admin():
 
 # student_quarters
 @admin.route("/student_quarters", methods=["GET", "POST"])
-@admin_required
 @login_required
+@admin_required
 def student_quarters():
     try:
         alert = session.pop("alert", None)
