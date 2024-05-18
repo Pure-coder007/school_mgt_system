@@ -7,11 +7,13 @@ from models import (
 )
 from flask_login import login_required, current_user, login_user, logout_user
 from passlib.hash import pbkdf2_sha256 as hasher
+from decorators import check_authenticated
 
 school = Blueprint("school", __name__)
 
 
 @school.route("/", methods=["GET"])
+@check_authenticated
 def landing_page():
     # print(get_roles())
     # print(create_admin())
@@ -21,6 +23,7 @@ def landing_page():
 
 
 @school.route("/login", methods=["GET", "POST"])
+@check_authenticated
 def login():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
