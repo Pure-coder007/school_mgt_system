@@ -189,8 +189,8 @@ def student_quarters():
 
 
 @admin.route("/admin_dashboard", methods=["GET"])
-@admin_required
 @login_required
+@admin_required
 def admin_dashboard():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
@@ -206,8 +206,8 @@ def admin_dashboard():
 
 # teams
 @admin.route("/teams", methods=["GET", "POST"])
-@admin_required
 @login_required
+@admin_required
 def teams():
     try:
         page = int(request.args.get("page", 1))
@@ -373,8 +373,8 @@ def teams():
 
 # courses
 @admin.route("/courses", methods=["GET", "POST"])
-@admin_required
 @login_required
+@admin_required
 def courses():
     try:
         page = int(request.args.get("page", 1))
