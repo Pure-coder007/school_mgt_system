@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from flask_login import login_required, current_user
 from passlib.hash import pbkdf2_sha256 as hasher
 from extensions import db
+from decorators import student_required
 
 student = Blueprint("student", __name__)
 
@@ -9,6 +10,7 @@ student = Blueprint("student", __name__)
 # student dashboard
 @student.route("/student_dashboard", methods=["GET"])
 @login_required
+@student_required
 def student_dashboard():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
@@ -22,6 +24,7 @@ def student_dashboard():
 
 @student.route("/registered_courses", methods=["GET"])
 @login_required
+@student_required
 def registered_courses():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
@@ -36,6 +39,7 @@ def registered_courses():
 # edit profile
 @student.route("/edit_profile", methods=["GET", "POST"])
 @login_required
+@student_required
 def edit_profile():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
