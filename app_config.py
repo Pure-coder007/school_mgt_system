@@ -1,5 +1,5 @@
 from extensions import db, migrate, cors, login_manager
-from flask import Flask, redirect, url_for
+from flask import Flask, render_template
 from config import config_object
 from endpoints import admin as admin_blueprint, school as school_blueprint, student as student_blueprint
 from models import Admin, Course, Student, CourseRegistered, Role
@@ -28,12 +28,12 @@ def create_app(config=config_object["development"]):
 
     @login_manager.unauthorized_handler
     def unauthorized():
-        return redirect(url_for("school.unauthorized"))
+        return render_template("unauthorized.html")
 
     # 404
     @app.errorhandler(404)
     def page_not_found(e):
-        return redirect(url_for("school.not_found"))
+        return render_template("404.html")
 
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(school_blueprint)
