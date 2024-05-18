@@ -44,7 +44,7 @@ def check_authenticated(func):
             if student_user:
                 session["alert"] = "You cannot access this page"
                 session["bg_color"] = "danger"
-                return redirect(url_for("admin.admin_dashboard"))
+                return redirect(url_for("student.student_dashboard"))
             admin = Admin.query.filter_by(id=current_user.id).first()
             if admin:
                 session["alert"] = "You cannot access this page"
