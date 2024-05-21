@@ -9,6 +9,7 @@ from flask_login import login_required, current_user, login_user, logout_user
 from passlib.hash import pbkdf2_sha256 as hasher
 from decorators import check_authenticated
 
+
 school = Blueprint("school", __name__)
 
 
@@ -72,6 +73,5 @@ def login():
 @login_required
 def logout():
     logout_user()
-    session["alert"] = "Logout successful"
-    session["bg_color"] = "success"
+    session.clear()
     return redirect(url_for("school.landing_page"))
