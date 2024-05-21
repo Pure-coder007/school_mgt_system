@@ -23,7 +23,7 @@
             </div>
             <div class="card-body">
                 <!-- Academic Details content -->
-                <h1>0.0</h1>
+                <h1>{{total_items}}</h1>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="card-body">
                 <!-- Academic Details content -->
-                <h1>0.0</h1>
+                <h1>{{total_units}}</h1>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@
                                         </td>
 
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;"><a href="" class="btn btn-info text-white badge fw-normal shadow-none" style="font-size: .9rem;">Select</a></span>
+                                            <span class="text-muted" style="font-size: .8rem;"><a href="{{url_for('student.available_courses', course_id=course.id)}}" class="btn btn-info text-white badge fw-normal shadow-none" style="font-size: .9rem;">Select</a></span>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -93,6 +93,67 @@
             </div>
         </div>
     </div>
+
+
+    <!-- selected courses -->
+
+    {% if selected_courses %}
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <span>Selected Courses</span>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table no-wrap user-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="border-0 text-uppercase font-medium pl-4" style="font-size: .9rem;">#</th>
+                                            <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Course Title</th>
+                                            <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Course Code</th>
+                                            <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Course Unit</th>
+                                            <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Lecturer</th>
+                                            <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for course in selected_courses %}
+                                        <tr>
+                                            <td class="pl-4" style="font-size: .8rem;">{{loop.index}}</td>
+                                            <td>
+                                                <h5 class="font-medium mb-0" style="font-size: 1rem;">{{course.course_title}}</h5>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted" style="font-size: .8rem;">{{course.course_code}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted" style="font-size: .8rem;">{{course.course_unit}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted" style="font-size: .8rem;">{{course.lecturer}}</span>
+                                            </td>
+    
+                                            <td>
+                                                <span class="text-muted" style="font-size: .8rem;"><a href="{{url_for('student.available_courses', remove_id=course.id)}}" class="btn btn-info text-white badge fw-normal shadow-none" style="font-size: .9rem;">Remove</a></span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
 </div>
 
 {% endblock content %}
