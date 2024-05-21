@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from flask_login import login_required, current_user
 from passlib.hash import pbkdf2_sha256 as hasher
 from extensions import db
+from models import Student, Course
 from decorators import student_required
+from sqlalchemy import desc
 
 student = Blueprint("student", __name__)
 
@@ -96,4 +98,32 @@ def edit_profile():
         student_dashboard=True,
         alert=alert,
         bg_color=bg_color,
+    )
+
+
+# available courses
+@student.route("/available_courses", methods=["GET"])
+@login_required
+@student_required
+def available_courses():
+    alert = session.pop("alert", None)
+    bg_color = session.pop("bg_color", None)
+
+    courses = Course.query.order_by(desc(Course.created_at)).all()
+
+    courses_list = [
+        {
+            'id': course.id,
+            'course_title': course.course_title.title(),
+            'course_code': course.course_code,
+            'course_unit': course.course_unit,
+            'lecturer': f"{course.lecturer.last_name} {course.lecturer.first_name}"
+        } for course in courses
+    ]
+    return render_template(
+        "student_templates/available_courses.html",
+        registered_courses=True,
+        alert=alert,
+        bg_color=bg_color,
+        courses=courses_list
     )
