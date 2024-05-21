@@ -108,6 +108,31 @@ def edit_profile():
 def available_courses():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
+    course_id = request.args.get("course_id")
+    remove_id = request.args.get("remove_id")
+
+    if remove_id:
+        obj_from_session = session.get(f"{current_user.id}", [])
+        # Find the course object with the matching ID and remove it
+        obj_from_session = [course_obj for course_obj in obj_from_session if course_obj['id'] != remove_id]
+        session[f"{current_user.id}"] = obj_from_session
+
+    if course_id:
+        course = Course.query.filter_by(id=course_id).first()
+
+        if course:
+            course_obj = {
+                'id': course.id,
+                'course_title': course.course_title.title(),
+                'course_code': course.course_code,
+                'course_unit': course.course_unit,
+                'lecturer': f"{course.lecturer.last_name} {course.lecturer.first_name}"
+            }
+
+            obj_from_session = session.get(f"{current_user.id}", [])
+            if course_obj not in obj_from_session:
+                obj_from_session.append(course_obj)
+                session[f"{current_user.id}"] = obj_from_session
 
     courses = Course.query.order_by(desc(Course.created_at)).all()
 
@@ -120,10 +145,17 @@ def available_courses():
             'lecturer': f"{course.lecturer.last_name} {course.lecturer.first_name}"
         } for course in courses
     ]
+
+    obj_from_session_list = session.get(f"{current_user.id}", [])
+    total_items = len(obj_from_session_list)
+    total_units = sum([course_obj['course_unit'] for course_obj in obj_from_session_list])
     return render_template(
         "student_templates/available_courses.html",
         registered_courses=True,
         alert=alert,
         bg_color=bg_color,
-        courses=courses_list
+        courses=courses_list,
+        selected_courses=obj_from_session_list,
+        total_items=total_items,
+        total_units=total_units
     )
