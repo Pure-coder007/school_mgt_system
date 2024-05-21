@@ -110,6 +110,10 @@ def available_courses():
     bg_color = session.pop("bg_color", None)
     course_id = request.args.get("course_id")
     remove_id = request.args.get("remove_id")
+    remove_all = request.args.get("remove_all")
+
+    if remove_all:
+        session[f"{current_user.id}"] = []
 
     if remove_id:
         obj_from_session = session.get(f"{current_user.id}", [])
