@@ -9,7 +9,7 @@ from sqlalchemy import desc
 
 
 def generate_admin_id():
-    return code_generator(f'ADMIN-{datetime.now().year}-')
+    return code_generator(f"ADMIN-{datetime.now().year}-")
 
 
 class Role(db.Model):
@@ -24,7 +24,7 @@ class Role(db.Model):
 
 
 class Admin(db.Model, UserMixin):
-    __tablename__ = 'admin'
+    __tablename__ = "admin"
     # The id column is the primary key
     id = db.Column(db.String(50), default=hexid, primary_key=True, index=True)
     # the first_name and last_name columns are not nullable
@@ -32,23 +32,25 @@ class Admin(db.Model, UserMixin):
     last_name = db.Column(db.String(50), nullable=False)
     # the adm_id column is unique and not nullable
     # the default value is a function that generates a unique code
-    adm_id = db.Column(db.String(50), unique=True, nullable=False,
-                       default=generate_admin_id
-                       )
+    adm_id = db.Column(
+        db.String(50), unique=True, nullable=False, default=generate_admin_id
+    )
     # the email column is unique and not nullable
     email = db.Column(db.String(120), unique=True, nullable=False)
     is_superadmin = db.Column(db.Boolean, default=False)
     phone_number = db.Column(db.String(50), nullable=True)
-    role_id = db.Column(db.String(50), db.ForeignKey('role.id'), nullable=False)
+    role_id = db.Column(db.String(50), db.ForeignKey("role.id"), nullable=False)
     # the password column is not nullable
     password = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.now)
 
-    courses = db.relationship('Course', cascade="all, delete", backref='lecturer', lazy=True)
+    courses = db.relationship(
+        "Course", cascade="all, delete", backref="lecturer", lazy=True
+    )
 
     # The __repr__ method is used to print the object
     def __repr__(self):
-        return '<Admin %r>' % self.email
+        return "<Admin %r>" % self.email
 
 
 # This decorator is used to check if the logged-in user is an admin
@@ -87,6 +89,7 @@ def get_roles():
         roles = Role.query.all()
     return [{"id": role.id, "name": role.name} for role in roles]
 
+
 # def create_admin():
 #     admin = Admin(
 #         first_name="Olawale",
@@ -103,23 +106,30 @@ def get_roles():
 
 # get admins
 def get_admins(page, per_page):
-    admins = Admin.query.order_by(desc(Admin.date_created)).paginate(page=page, per_page=per_page, error_out=False)
+    admins = Admin.query.order_by(desc(Admin.date_created)).paginate(
+        page=page, per_page=per_page, error_out=False
+    )
     total_pages = admins.pages
     total_items = admins.total
-    return [
-        {
-            "id": admin.id,
-            "first_name": admin.first_name,
-            "last_name": admin.last_name,
-            "email": admin.email,
-            "phone_number": admin.phone_number,
-            "role": admin.role.name,
-            "is_superadmin": admin.is_superadmin,
-            "adm_id": admin.adm_id,
-            "date_created": admin.date_created.strftime("%d %b, %Y"),
-            "time_created": admin.date_created.strftime("%I:%M %p"),
-        } for admin in admins.items
-    ], total_pages, total_items
+    return (
+        [
+            {
+                "id": admin.id,
+                "first_name": admin.first_name,
+                "last_name": admin.last_name,
+                "email": admin.email,
+                "phone_number": admin.phone_number,
+                "role": admin.role.name,
+                "is_superadmin": admin.is_superadmin,
+                "adm_id": admin.adm_id,
+                "date_created": admin.date_created.strftime("%d %b, %Y"),
+                "time_created": admin.date_created.strftime("%I:%M %p"),
+            }
+            for admin in admins.items
+        ],
+        total_pages,
+        total_items,
+    )
 
 
 # get admins that are lecturers by role
@@ -131,5 +141,6 @@ def get_lecturers():
             "first_name": admin.first_name,
             "last_name": admin.last_name,
             "email": admin.email,
-        } for admin in admin_lecturers
+        }
+        for admin in admin_lecturers
     ]
