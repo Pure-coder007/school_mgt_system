@@ -118,7 +118,11 @@ def available_courses():
     if remove_id:
         obj_from_session = session.get(f"{current_user.id}", [])
         # Find the course object with the matching ID and remove it
-        obj_from_session = [course_obj for course_obj in obj_from_session if course_obj['id'] != remove_id]
+        obj_from_session = [
+            course_obj
+            for course_obj in obj_from_session
+            if course_obj["id"] != remove_id
+        ]
         session[f"{current_user.id}"] = obj_from_session
 
     if course_id:
@@ -126,11 +130,11 @@ def available_courses():
 
         if course:
             course_obj = {
-                'id': course.id,
-                'course_title': course.course_title.title(),
-                'course_code': course.course_code,
-                'course_unit': course.course_unit,
-                'lecturer': f"{course.lecturer.last_name} {course.lecturer.first_name}"
+                "id": course.id,
+                "course_title": course.course_title.title(),
+                "course_code": course.course_code,
+                "course_unit": course.course_unit,
+                "lecturer": f"{course.lecturer.last_name} {course.lecturer.first_name}",
             }
 
             obj_from_session = session.get(f"{current_user.id}", [])
@@ -142,17 +146,20 @@ def available_courses():
 
     courses_list = [
         {
-            'id': course.id,
-            'course_title': course.course_title.title(),
-            'course_code': course.course_code,
-            'course_unit': course.course_unit,
-            'lecturer': f"{course.lecturer.last_name} {course.lecturer.first_name}"
-        } for course in courses
+            "id": course.id,
+            "course_title": course.course_title.title(),
+            "course_code": course.course_code,
+            "course_unit": course.course_unit,
+            "lecturer": f"{course.lecturer.last_name} {course.lecturer.first_name}",
+        }
+        for course in courses
     ]
 
     obj_from_session_list = session.get(f"{current_user.id}", [])
     total_items = len(obj_from_session_list)
-    total_units = sum([course_obj['course_unit'] for course_obj in obj_from_session_list])
+    total_units = sum(
+        [course_obj["course_unit"] for course_obj in obj_from_session_list]
+    )
     return render_template(
         "student_templates/available_courses.html",
         registered_courses=True,
@@ -161,5 +168,5 @@ def available_courses():
         courses=courses_list,
         selected_courses=obj_from_session_list,
         total_items=total_items,
-        total_units=total_units
+        total_units=total_units,
     )
