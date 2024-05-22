@@ -5,13 +5,13 @@ from utils import hexid
 
 # This is the model for the registered courses by students
 class CourseRegistered(db.Model, UserMixin):
-    __tablename__ = 'course_registered'
+    __tablename__ = "course_registered"
     # The id column is the primary key
     id = db.Column(db.String(50), default=hexid, primary_key=True, index=True)
     # The score column is not nullable with a default value of 0.0
     score = db.Column(db.Float, nullable=False, default=0.0)
     # The grade column is not nullable with a default value of N/A
-    grade = db.Column(db.String(10), default='N/A')
+    grade = db.Column(db.String(10), default="N/A")
     # The course_code column is not nullable, this is the course code
     course_code = db.Column(db.String(80), nullable=False)
     # The course_title column is not nullable, this is the course title
@@ -25,12 +25,12 @@ class CourseRegistered(db.Model, UserMixin):
     # the last_name of the student
     last_name = db.Column(db.String(50), nullable=False)
     # the student's id, it is a foreign key linked to the students table
-    student_id = db.Column(db.String(50), db.ForeignKey('students.id'), nullable=False)
+    student_id = db.Column(db.String(50), db.ForeignKey("students.id"), nullable=False)
     # the course's id, it is a foreign key linked to the courses table
-    course_id = db.Column(db.String(50), db.ForeignKey('courses.id'), nullable=False)
+    course_id = db.Column(db.String(50), db.ForeignKey("courses.id"), nullable=False)
 
     def __repr__(self):
-        return '<CourseRegistered %r>' % self.id
+        return "<CourseRegistered %r>" % self.id
 
 
 # This function checks if a course is registered by a student
