@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from flask_login import login_required, current_user
 from passlib.hash import pbkdf2_sha256 as hasher
 from extensions import db
-from models import Student, Course
+from models import Student, Course, CourseRegistered
 from decorators import student_required
 from sqlalchemy import desc
 
@@ -111,6 +111,26 @@ def available_courses():
     course_id = request.args.get("course_id")
     remove_id = request.args.get("remove_id")
     remove_all = request.args.get("remove_all")
+    register = request.args.get("register")
+
+    if register:
+        session_courses = session.get(f"{current_user.id}", [])
+        if not session_courses:
+            session["alert"] = "No courses selected"
+            session["bg_color"] = "danger"
+            return redirect(url_for("student.available_courses"))
+
+        for course in session_courses:
+            course_obj = CourseRegistered(
+                course_id=course["id"],
+                student_id=current_user.id
+            )
+            db.session.add(course_obj)
+        db.session.commit()
+
+        session["alert"] = "Courses registered successfully"
+        session["bg_color"] = "success"
+        return redirect(url_for("student.student_dashboard"))
 
     if remove_all:
         session[f"{current_user.id}"] = []
