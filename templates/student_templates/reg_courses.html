@@ -16,32 +16,50 @@
 
 <div class="row">
     <!-- User Profile Card and Academic Details -->
-    <div class="col-md-6">
+    <div class="col-md-3 d-md-block">
         <div class="card">
-            <div class="card-header">
-                User Profile
+            <div class="card-header text-center">
+                Total Courses
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Phone Number</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">{{current_user.phone}}</p>
-                    </div>
-                  </div>
-                  <hr>
+                <!-- Academic Details content -->
+                <h1 class="text-center">{{total_courses}}</h1>
             </div>
         </div>
     </div>
-    <div class="col-md-6 d-md-block">
+
+    <div class="col-md-3 d-md-block">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header text-center">
+                Registered Courses
+            </div>
+            <div class="card-body">
+                <!-- Academic Details content -->
+                <h1 class="text-center">{{current_user.registered_courses|length}}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 d-md-block">
+        <div class="card">
+            <div class="card-header text-center">
+                Total Units Registered
+            </div>
+            <div class="card-body">
+                <!-- Academic Details content -->
+                <h1 class="text-center">{{total_units}}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 d-md-block">
+        <div class="card">
+            <div class="card-header text-center">
                 GPA
             </div>
             <div class="card-body">
                 <!-- Academic Details content -->
-                <h1>{{current_user.gpa}}</h1>
+                <h1 class="text-center">{{current_user.gpa}}</h1>
             </div>
         </div>
     </div>
@@ -53,7 +71,7 @@
             <div class="card-header">
                 <span>Registered Courses</span>
                 <span class="float-end">
-                    <a href="{{url_for('student.available_courses')}}" class="btn btn-info text-white badge fw-normal" style="font-size: .9rem;">Register Course</a>
+                    <a href="{{url_for('student.available_courses')}}" class="btn btn-info text-white badge fw-normal shadow-none" style="font-size: .9rem;">Register Course</a>
                 </span>
             </div>
             <div class="card-body">
@@ -64,29 +82,35 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" class="border-0 text-uppercase font-medium pl-4" style="font-size: .9rem;">#</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Name</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Matric</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Email</th>
-                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Added</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Course Title</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Course Code</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Course Unit</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Lecturer</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Scores</th>
+                                        <th scope="col" class="border-0 text-uppercase font-medium" style="font-size: .9rem;">Grade</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for student in students %}
+                                    {% for course in reg_courses %}
                                     <tr>
                                         <td class="pl-4" style="font-size: .8rem;">{{loop.index}}</td>
                                         <td>
-                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">{{student.last_name}} {{student.first_name}}</h5>
+                                            <h5 class="font-medium mb-0" style="font-size: 1rem;">{{course.course.course_title}}</h5>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">{{student.stud_id}}</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{course.course.course_code}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">{{student.email}}</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">{{student.phone}}</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{course.course.course_unit}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">{{student.date}}</span><br>
-                                            <span class="text-muted" style="font-size: .8rem;">{{student.time}}</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{course.course.lecturer.last_name}} {{course.course.lecturer.first_name}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted" style="font-size: .8rem;">{{course.score}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted" style="font-size: .8rem;">{{course.grade}}</span>
                                         </td>
                                     </tr>
                                     {% endfor %}
