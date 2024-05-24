@@ -77,14 +77,20 @@
                                         <td>
                                             <span class="text-muted" style="font-size: .8rem;">{{course.lecturer}}</span>
                                         </td>
-
-                                        {% if course in selected_courses %}
+                                        
+                                        {% if course.registered %}
                                         <td>
-                                            <span class="text-success" style="font-size: .8rem;"><i class="fas fa-check text-success"></i> selected</span>
+                                            <span class="text-success" style="font-size: .8rem;"><i class="fa-solid fa-registered text-info"></i> registered</span>
+                                        </td>
+                                        {% elif course.selected %}
+                                        <td>
+                                            <span class="text-info" style="font-size: .8rem;"><i class="fas fa-check text-success"></i> selected</span>
                                         </td>
                                         {% else %}
                                         <td>
+                                        {% if total_registered_courses >= 12 %}
                                             <span class="text-muted" style="font-size: .8rem;"><a href="{{url_for('student.available_courses', course_id=course.id)}}" class="btn btn-info text-white badge fw-normal shadow-none" style="font-size: .9rem;">Select</a></span>
+                                            {% endif %}
                                         </td>
                                         {% endif %}
                                     </tr>
