@@ -37,7 +37,7 @@ class Course(db.Model, UserMixin):
     )
 
     def __repr__(self):
-        return "<Course %r>" % self.name
+        return "<Course %r>" % self.course_title
 
 
 def create_course(course_title, course_code, course_unit, teacher):
