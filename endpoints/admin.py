@@ -12,6 +12,8 @@ from models import (
     add_student,
     email_exist,
     phone_exist,
+    Student,
+    CourseRegistered,
     get_recent_students,
 )
 from passlib.hash import pbkdf2_sha256 as hasher
@@ -41,6 +43,7 @@ def student_quarters():
         page = int(request.args.get("page", 1))
         per_page = int(request.args.get("per_page", 5))
         all_students, total_pages, total_items = get_students(page, per_page)
+        all_courses = Course.query.all()
         if request.method == "POST":
             first_name = request.form.get("fname")
             last_name = request.form.get("lname")
@@ -73,6 +76,7 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
+                    all_courses=all_courses
                 )
             if not is_valid_email(email):
                 alert = "Invalid email address"
@@ -91,6 +95,7 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
+                    all_courses=all_courses
                 )
             if len(phone_number) != 11 or phone_number[0] != "0":
                 alert = "Invalid phone number"
@@ -109,6 +114,7 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
+                    all_courses=all_courses
                 )
             phone = f"+234{phone_number[1:]}"
             if email_exist(email):
@@ -128,6 +134,7 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
+                    all_courses=all_courses
                 )
             if phone_exist(phone):
                 alert = "Phone number already exist"
@@ -146,6 +153,7 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
+                    all_courses=all_courses
                 )
             res = add_student(first_name, last_name, email, phone)
             if res:
@@ -169,6 +177,7 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
+                    all_courses=all_courses
                 )
         return render_template(
             "admin_templates/student_quarters.html",
@@ -180,6 +189,7 @@ def student_quarters():
             per_page=per_page,
             total_pages=total_pages,
             total_items=total_items,
+            all_courses=all_courses
         )
     except Exception as e:
         print(e, "error@admin/student_quarters")
@@ -463,3 +473,26 @@ def courses():
         session["alert"] = "Network Error"
         session["bg_color"] = "danger"
         return redirect(url_for("admin.courses"))
+
+
+# view student's details
+@admin.route("/view_student/<student_id>")
+@login_required
+@admin_required
+def view_student(student_id):
+    alert = session.pop("alert", None)
+    bg_color = session.pop("bg_color", None)
+    student = Student.query.get(student_id)
+    if not student:
+        return redirect(url_for("admin.students"))
+    course_registered = CourseRegistered.query.filter_by(
+        student_id=student_id
+    )
+    return render_template(
+        "admin_templates/view_student.html",
+        alert=alert,
+        bg_color=bg_color,
+        student=student,
+        course_registered=course_registered,
+        student_quarters=True,
+    )
