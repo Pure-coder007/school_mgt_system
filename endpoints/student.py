@@ -16,11 +16,16 @@ student = Blueprint("student", __name__)
 def student_dashboard():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
+
+    all_registered_courses = CourseRegistered.query.filter_by(
+        student_id=current_user.id
+    )
     return render_template(
         "student_templates/home.html",
         student_dashboard=True,
         alert=alert,
         bg_color=bg_color,
+        all_registered_courses=all_registered_courses
     )
 
 
@@ -30,11 +35,20 @@ def student_dashboard():
 def registered_courses():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
+    reg_courses = CourseRegistered.query.filter_by(
+        student_id=current_user.id
+    )
+
+    total_units = sum([course.course.course_unit for course in reg_courses])
+    courses = Course.query.all()
     return render_template(
         "student_templates/reg_courses.html",
         registered_courses=True,
         alert=alert,
         bg_color=bg_color,
+        reg_courses=reg_courses,
+        total_units=total_units,
+        total_courses=len(courses),
     )
 
 
@@ -130,6 +144,7 @@ def available_courses():
 
         session["alert"] = "Courses registered successfully"
         session["bg_color"] = "success"
+        session[f"{current_user.id}"] = []
         return redirect(url_for("student.student_dashboard"))
 
     if remove_all:
@@ -164,6 +179,8 @@ def available_courses():
 
     courses = Course.query.order_by(desc(Course.created_at)).all()
 
+    obj_from_session_list = session.get(f"{current_user.id}", [])
+
     courses_list = [
         {
             "id": course.id,
@@ -171,12 +188,14 @@ def available_courses():
             "course_code": course.course_code,
             "course_unit": course.course_unit,
             "lecturer": f"{course.lecturer.last_name} {course.lecturer.first_name}",
+            "registered": True if course.registered_courses else False,
+            "selected": True if course.id in [course_obj["id"] for course_obj in obj_from_session_list] else False,
         }
         for course in courses
     ]
 
-    obj_from_session_list = session.get(f"{current_user.id}", [])
     total_items = len(obj_from_session_list)
+    total_registered_courses = len(current_user.registered_courses)
     total_units = sum(
         [course_obj["course_unit"] for course_obj in obj_from_session_list]
     )
@@ -189,4 +208,5 @@ def available_courses():
         selected_courses=obj_from_session_list,
         total_items=total_items,
         total_units=total_units,
+        total_registered_courses=total_registered_courses
     )
