@@ -54,7 +54,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <span>Students</span>
+                <span class="float-end">
+                    <button class="badge btn btn-info text-white fw-normal py-1 px-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-solid fa-filter" style="font-size: .8rem;"></i></button>
+                </span>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -96,12 +99,13 @@
                                             <span class="text-muted" style="font-size: .8rem;">{{student.courses_registered}}</span>
                                         </td>
                                         <td class="pt-0">
-                                            <button type="button"
-                                                class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle"><i
-                                                    class="fa fa-key" style="font-size: .8rem;"></i> </button>
+                                            <a href="{{ url_for('admin.view_student', student_id=student.id) }}"
+                                                class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle text-decoration-none">
+                                                <i
+                                                    class="fa-solid fa-circle-info" style="font-size: .8rem;"></i></a>
                                             <button type="button"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
-                                                    class="fa fa-trash" style="font-size: .8rem;"></i> </button>
+                                                    class="fa-solid fa-ban" style="font-size: .8rem;"></i> </button>
                                             <button type="button"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
                                                     class="fa fa-edit" style="font-size: .8rem;"></i> </button>
@@ -163,6 +167,30 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Filter Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" class="form-group">
+            <input type="text" class="form-control" placeholder="Matric Number" style="font-size: 1rem !important;">
+            <select name="" id="" class="form-control shadow-none">
+                <option value="" selected disabled>Courses</option>
+                {% for course in all_courses %}
+                <option value="{{ course.course_title }}">{{ course.course_title }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Filter" class="form-control btn btn-info text-white" style="font-size: 1rem !important;">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
