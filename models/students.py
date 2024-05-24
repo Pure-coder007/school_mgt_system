@@ -32,7 +32,7 @@ def code_generator(prefix: str):
 
 # This is the model for the students
 class Student(db.Model, UserMixin):
-    __tablename__ = 'students'
+    __tablename__ = "students"
     # The id column is the primary key
     id = db.Column(db.String(50), default=hexid, primary_key=True, index=True)
     # the first_name column
@@ -45,26 +45,32 @@ class Student(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable=False)
     # student_id column is unique and not nullable, this is the student's matriculation number
     # the default value is a function that generates a unique code with the prefix 'ACA' and the current year
-    stud_id = db.Column(db.String(50), unique=True, nullable=False,
-                        default=code_generator(f'ACA-{datetime.now().year}-'))
+    stud_id = db.Column(
+        db.String(50),
+        unique=True,
+        nullable=False,
+        default=code_generator(f"ACA-{datetime.now().year}-"),
+    )
     # the gpa column is not nullable, the default value is 0.00
     gpa = db.Column(db.Float, nullable=False, default=0.00)
     # the password column is not nullable, the default value is a function that hashes the default password
     # the default password is the argument passed to the function
-    password = db.Column(db.Text, nullable=False,
-                         default=student_default_password('academia'))
+    password = db.Column(
+        db.Text, nullable=False, default=student_default_password("academia")
+    )
     # the changed_password column is not nullable, the default value is False
     # this column is used to check if the student has changed the default password
     changed_password = db.Column(db.Boolean, nullable=False, default=False)
     # date
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     # the registered_courses column is a relationship with the CourseRegistered model
-    registered_courses = db.relationship('CourseRegistered',
-                                         cascade="all, delete", backref='student', lazy=True)
+    registered_courses = db.relationship(
+        "CourseRegistered", cascade="all, delete", backref="student", lazy=True
+    )
 
     # The __repr__ method is used to print the object
     def __repr__(self):
-        return '<User %r>' % self.email
+        return "<User %r>" % self.email
 
 
 # This decorator is used to check if the logged-in user is a student
@@ -83,30 +89,34 @@ class Student(db.Model, UserMixin):
 
 # get all students
 def get_students(page, per_page):
-    students = Student.query.order_by(desc(Student.created_at)).paginate(page=page, per_page=per_page, error_out=False)
+    students = Student.query.order_by(desc(Student.created_at)).paginate(
+        page=page, per_page=per_page, error_out=False
+    )
     total_pages = students.pages
     total_items = students.total
-    return [
-        {
-            "id": student.id,
-            "first_name": student.first_name,
-            "last_name": student.last_name,
-            "email": student.email,
-            "phone": student.phone,
-            "stud_id": student.stud_id,
-            "courses_registered": len(student.registered_courses),
-        } for student in students.items
-    ], total_pages, total_items
+    return (
+        [
+            {
+                "id": student.id,
+                "first_name": student.first_name,
+                "last_name": student.last_name,
+                "email": student.email,
+                "phone": student.phone,
+                "stud_id": student.stud_id,
+                "courses_registered": len(student.registered_courses),
+            }
+            for student in students.items
+        ],
+        total_pages,
+        total_items,
+    )
 
 
 # add students
 def add_student(first_name, last_name, email, phone):
     try:
         student = Student(
-            first_name=first_name,
-            last_name=last_name,
-            email=email.lower(),
-            phone=phone
+            first_name=first_name, last_name=last_name, email=email.lower(), phone=phone
         )
         db.session.add(student)
         db.session.commit()
@@ -140,5 +150,6 @@ def get_recent_students():
             "stud_id": student.stud_id,
             "date": student.created_at.strftime("%d %b, %Y"),
             "time": student.created_at.strftime("%I:%M %p"),
-        } for student in students
+        }
+        for student in students
     ]
