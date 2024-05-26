@@ -88,8 +88,13 @@ class Student(db.Model, UserMixin):
 
 
 # get all students
-def get_students(page, per_page):
-    students = Student.query.order_by(desc(Student.created_at)).paginate(
+def get_students(matric_no, course_id, page, per_page):
+    students = Student.query.join(CourseRegistered).filter(
+        Student.stud_id.like(f"%{matric_no}%") if matric_no else True,
+        CourseRegistered.course_id.like(f"%{course_id}%") if course_id else True,
+    ).order_by(
+        desc(Student.created_at)
+    ).paginate(
         page=page, per_page=per_page, error_out=False
     )
     total_pages = students.pages
