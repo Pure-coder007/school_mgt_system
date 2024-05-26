@@ -42,23 +42,16 @@ def student_quarters():
         bg_color = session.pop("bg_color", None)
         page = int(request.args.get("page", 1))
         per_page = int(request.args.get("per_page", 5))
-        all_students, total_pages, total_items = get_students(page, per_page)
+        matric_no = request.args.get("matric_no")
+        course_id = request.args.get("course_id")
+        all_students, total_pages, total_items = get_students(matric_no, course_id, page, per_page)
         all_courses = Course.query.all()
         if request.method == "POST":
             first_name = request.form.get("fname")
             last_name = request.form.get("lname")
             email = request.form.get("email")
             phone_number = request.form.get("phone")
-            print(
-                "first_name: ",
-                first_name,
-                " last_name: ",
-                last_name,
-                " email: ",
-                email,
-                " phone_number: ",
-                phone_number,
-            )
+
             if not first_name or not last_name or not email or not phone_number:
                 alert = "Please fill all the fields"
                 bg_color = "danger"
@@ -233,21 +226,6 @@ def teams():
             phone_number = request.form.get("phone")
             role = request.form.get("role")
             is_superadmin = request.form.get("is_superadmin")
-
-            print(
-                "first_name: ",
-                first_name,
-                " last_name: ",
-                last_name,
-                " email: ",
-                email,
-                " phone_number: ",
-                phone_number,
-                " role: ",
-                role,
-                " is_superadmin: ",
-                is_superadmin,
-            )
 
             if (
                 not first_name
