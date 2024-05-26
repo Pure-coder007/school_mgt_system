@@ -184,11 +184,11 @@
         </div>
         <div class="modal-body">
           <form action="" method="get" class="form-group">
-            <input type="text" class="form-control" name="matric_no" placeholder="Matric Number" style="font-size: 1rem !important;">
+            <input type="text" class="form-control" name="matric_no" value="{% if matric_no %}{{matric_no}}{% endif %}" placeholder="Matric Number" style="font-size: 1rem !important;">
             <select name="course_id" id="" class="form-control shadow-none">
                 <option value="" selected disabled>Courses</option>
                 {% for course in all_courses %}
-                <option value="{{ course.id }}">{{ course.course_title }}</option>
+                <option value="{{ course.id }}" {% if course_id == course.id %} selected {% endif %}>{{ course.course_title }}</option>
                 {% endfor %}
             </select>
             <input type="submit" value="Filter" class="form-control btn btn-info text-white" style="font-size: 1rem !important;">
