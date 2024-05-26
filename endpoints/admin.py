@@ -44,8 +44,11 @@ def student_quarters():
         per_page = int(request.args.get("per_page", 5))
         matric_no = request.args.get("matric_no")
         course_id = request.args.get("course_id")
+        print(matric_no, ":", course_id)
         all_students, total_pages, total_items = get_students(matric_no, course_id, page, per_page)
         all_courses = Course.query.all()
+
+        reset_filter = False if not (matric_no or course_id) else True
         if request.method == "POST":
             first_name = request.form.get("fname")
             last_name = request.form.get("lname")
@@ -69,7 +72,10 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
-                    all_courses=all_courses
+                    all_courses=all_courses,
+                    reset_filter=reset_filter,
+                    matric_no=matric_no,
+                    course_id=course_id
                 )
             if not is_valid_email(email):
                 alert = "Invalid email address"
@@ -88,7 +94,10 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
-                    all_courses=all_courses
+                    all_courses=all_courses,
+                    reset_filter=reset_filter,
+                    matric_no=matric_no,
+                    course_id=course_id
                 )
             if len(phone_number) != 11 or phone_number[0] != "0":
                 alert = "Invalid phone number"
@@ -107,7 +116,10 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
-                    all_courses=all_courses
+                    all_courses=all_courses,
+                    reset_filter=reset_filter,
+                    matric_no=matric_no,
+                    course_id=course_id
                 )
             phone = f"+234{phone_number[1:]}"
             if email_exist(email):
@@ -127,7 +139,10 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
-                    all_courses=all_courses
+                    all_courses=all_courses,
+                    reset_filter=reset_filter,
+                    matric_no=matric_no,
+                    course_id=course_id
                 )
             if phone_exist(phone):
                 alert = "Phone number already exist"
@@ -146,7 +161,10 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
-                    all_courses=all_courses
+                    all_courses=all_courses,
+                    reset_filter=reset_filter,
+                    matric_no=matric_no,
+                    course_id=course_id
                 )
             res = add_student(first_name, last_name, email, phone)
             if res:
@@ -170,7 +188,10 @@ def student_quarters():
                     per_page=per_page,
                     total_pages=total_pages,
                     total_items=total_items,
-                    all_courses=all_courses
+                    all_courses=all_courses,
+                    reset_filter=reset_filter,
+                    matric_no=matric_no,
+                    course_id=course_id
                 )
         return render_template(
             "admin_templates/student_quarters.html",
@@ -182,7 +203,10 @@ def student_quarters():
             per_page=per_page,
             total_pages=total_pages,
             total_items=total_items,
-            all_courses=all_courses
+            all_courses=all_courses,
+            reset_filter=reset_filter,
+            matric_no=matric_no,
+            course_id=course_id
         )
     except Exception as e:
         print(e, "error@admin/student_quarters")
