@@ -490,11 +490,13 @@ def view_student(student_id):
     course_registered = CourseRegistered.query.filter_by(
         student_id=student_id
     )
+    total_units = sum([course.course.course_unit for course in course_registered])
     return render_template(
         "admin_templates/view_student.html",
         alert=alert,
         bg_color=bg_color,
         student=student,
         course_registered=course_registered,
+        total_units=total_units,
         student_quarters=True,
     )
