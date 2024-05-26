@@ -54,9 +54,15 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <span class="float-end">
+                <span class="float-end d-flex align-items-center">
+                    {% if reset_filter %}
+                    <a href="{{url_for('admin.student_quarters')}}" class="badge btn btn-info text-white fw-normal py-2 px-3 mx-2">
+                        <i class="fa-solid fa-rotate-right" style="font-size: .9rem;"></i>
+                    </a>
+                    {% endif %}
                     <button class="badge btn btn-info text-white fw-normal py-1 px-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="fa-solid fa-filter" style="font-size: .8rem;"></i></button>
+                        <i class="fa-solid fa-filter" style="font-size: .8rem;"></i>
+                    </button>
                 </span>
             </div>
             <div class="card-body">
