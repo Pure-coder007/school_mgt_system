@@ -177,12 +177,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="" method="post" class="form-group">
-            <input type="text" class="form-control" placeholder="Matric Number" style="font-size: 1rem !important;">
-            <select name="" id="" class="form-control shadow-none">
+          <form action="" method="get" class="form-group">
+            <input type="text" class="form-control" name="matric_no" placeholder="Matric Number" style="font-size: 1rem !important;">
+            <select name="course_id" id="" class="form-control shadow-none">
                 <option value="" selected disabled>Courses</option>
                 {% for course in all_courses %}
-                <option value="{{ course.course_title }}">{{ course.course_title }}</option>
+                <option value="{{ course.id }}">{{ course.course_title }}</option>
                 {% endfor %}
             </select>
             <input type="submit" value="Filter" class="form-control btn btn-info text-white" style="font-size: 1rem !important;">
