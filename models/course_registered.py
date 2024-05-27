@@ -32,3 +32,7 @@ class CourseRegistered(db.Model, UserMixin):
 #         return True
 #     # if the course is not registered, return False
 #     return False
+
+
+def number_of_course_reg(course_id):
+    return CourseRegistered.query.filter_by(course_id=course_id).count()
