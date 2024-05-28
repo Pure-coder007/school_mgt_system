@@ -520,8 +520,8 @@ def upload_result(student_id):
         scores = [course_reg.score for course_reg in student_reg_courses]
         units = [course_reg.course.course_unit for course_reg in student_reg_courses]
         gpa = calculate_gpa(scores, units)
-        student = Student.query.get(student_id)
-        student.gpa = gpa
+        
+        student_reg_courses[0].student.gpa = gpa
         db.session.commit()
         session["alert"] = "Result uploaded successfully"
         session["bg_color"] = "success"
