@@ -520,7 +520,7 @@ def upload_result(student_id):
         scores = [course_reg.score for course_reg in student_reg_courses]
         units = [course_reg.course.course_unit for course_reg in student_reg_courses]
         gpa = calculate_gpa(scores, units)
-        
+
         student_reg_courses[0].student.gpa = gpa
         db.session.commit()
         session["alert"] = "Result uploaded successfully"
@@ -528,6 +528,26 @@ def upload_result(student_id):
         return redirect(url_for("admin.view_student", student_id=student_id))
     except Exception as e:
         print(e, "error@upload_result")
+        db.session.rollback()
+        session["alert"] = "Network Error"
+        session["bg_color"] = "danger"
+        return redirect(url_for("admin.view_student", student_id=student_id))
+
+
+# change active status
+@admin.route("/change_active_status/<student_id>", methods=["GET"])
+@login_required
+@admin_required
+def change_active_status(student_id):
+    try:
+        student = Student.query.get(student_id)
+        student.active = not student.active
+        db.session.commit()
+        session["alert"] = "Student suspended successfully" if not student.active else "Student activated successfully"
+        session["bg_color"] = "success"
+        return redirect(url_for("admin.view_student", student_id=student_id))
+    except Exception as e:
+        print(e, "error@change_active_status")
         db.session.rollback()
         session["alert"] = "Network Error"
         session["bg_color"] = "danger"
