@@ -111,7 +111,7 @@
                                                     class="fa-solid fa-circle-info" style="font-size: .8rem;"></i></a>
                                             <button type="button"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
-                                                    class="fa-solid fa-ban" style="font-size: .8rem;"></i> </button>
+                                                    class=" {% if not student.active %} fa-solid fa-ban text-danger {% else %} fa-solid fa-check text-success {% endif %}" style="font-size: .8rem;"></i> </button>
                                             <button type="button"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
                                                     class="fa fa-edit" style="font-size: .8rem;"></i> </button>
