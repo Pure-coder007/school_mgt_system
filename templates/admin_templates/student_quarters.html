@@ -104,20 +104,27 @@
                                         <td>
                                             <span class="text-muted" style="font-size: .8rem;">{{student.courses_registered}}</span>
                                         </td>
-                                        <td class="pt-0">
+                                        <td class="pt-0 d-flex align-items-center mt-2">
                                             <a href="{{ url_for('admin.view_student', student_id=student.id) }}"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle text-decoration-none">
                                                 <i
                                                     class="fa-solid fa-circle-info" style="font-size: .8rem;"></i></a>
-                                            <button type="button"
+                                            <!-- <button type="button"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
-                                                    class=" {% if not student.active %} fa-solid fa-ban text-danger {% else %} fa-solid fa-check text-success {% endif %}" style="font-size: .8rem;"></i> </button>
-                                            <button type="button"
+                                                    class=" {% if not student.active %} fa-solid fa-ban text-danger {% else %} fa-solid fa-check text-success {% endif %}" style="font-size: .8rem;"></i> </button> -->
+                                            <div class="badge fw-normal rounded-circle p-2 ms-3 {% if not student.active %} bg-danger {% else %} bg-success {% endif %}">
+                                                {% if student.active %}
+                                                <span></span>
+                                                {% else %}
+                                                <span></span>
+                                                {% endif %}
+                                            </div>
+                                            <!-- <button type="button"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
                                                     class="fa fa-edit" style="font-size: .8rem;"></i> </button>
                                             <button type="button"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
-                                                    class="fa fa-upload" style="font-size: .8rem;"></i> </button>
+                                                    class="fa fa-upload" style="font-size: .8rem;"></i> </button> -->
                                         </td>
                                     </tr>
                                     {% endfor %}
