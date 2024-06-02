@@ -421,17 +421,6 @@ def courses():
                     per_page=per_page,
                 )
 
-            print(
-                "course_unit: ",
-                course_unit,
-                " course_code: ",
-                course_code,
-                " course_title: ",
-                course_title,
-                " lecturer: ",
-                lecturer,
-            )
-
             course_exist = Course.query.filter_by(course_code=course_code).first()
             if course_exist:
                 alert = "Course already exist"
