@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from utils import hexid
 from sqlalchemy import desc
+from .course_registered import number_of_course_reg
 
 
 # This is the model for the courses
@@ -68,6 +69,7 @@ def get_courses(page, per_page):
                 "course_code": course.course_code,
                 "course_unit": course.course_unit,
                 "created_at": course.created_at.strftime("%d-%b-%Y"),
+                "student_reg": number_of_course_reg(course.id),
                 "lecturer": f"{course.lecturer.last_name} {course.lecturer.first_name}",
             }
             for course in courses.items

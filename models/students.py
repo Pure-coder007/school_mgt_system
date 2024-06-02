@@ -44,6 +44,7 @@ class Student(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     # student phone number
     phone = db.Column(db.String(20), nullable=False)
+    active = db.Column(db.Boolean, default=True)
     # student_id column is unique and not nullable, this is the student's matriculation number
     # the default value is a function that generates a unique code with the prefix 'ACA' and the current year
     stud_id = db.Column(
@@ -110,6 +111,7 @@ def get_students(matric_no, course_id, page, per_page):
                 "email": student.email,
                 "phone": student.phone,
                 "stud_id": student.stud_id,
+                "active": student.active,
                 "courses_registered": len(student.registered_courses),
             }
             for student in students.items

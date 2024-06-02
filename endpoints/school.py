@@ -51,6 +51,16 @@ def login():
         )
 
         if user and hasher.verify(password, user.password):
+            if user_type == "student" and not user.active:
+                alert = "Your account has been suspended"
+                bg_color = "danger"
+                return render_template(
+                    "login.html",
+                    alert=alert,
+                    bg_color=bg_color,
+                    login_code=login_code,
+                    password=password,
+                )
             session["alert"] = "Login successful"
             session["bg_color"] = "success"
             login_user(user)

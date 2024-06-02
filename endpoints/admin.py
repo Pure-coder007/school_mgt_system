@@ -18,7 +18,7 @@ from models import (
 )
 from passlib.hash import pbkdf2_sha256 as hasher
 from extensions import db
-from utils import is_valid_email
+from utils import is_valid_email, get_grade, calculate_gpa
 from decorators import admin_required
 
 admin = Blueprint("admin", __name__)
@@ -489,3 +489,55 @@ def view_student(student_id):
         total_units=total_units,
         student_quarters=True,
     )
+
+
+# upload result
+@admin.route("/upload_result/<student_id>", methods=["POST"])
+@login_required
+@admin_required
+def upload_result(student_id):
+    try:
+        student_reg_courses = CourseRegistered.query.filter_by(
+            student_id=student_id
+        ).all()
+        for course_reg in student_reg_courses:
+            score = float(request.form.get(course_reg.course_id))
+            if score:
+                course_reg.score = float(score)
+                course_reg.grade = get_grade(score)
+                db.session.commit()
+        scores = [course_reg.score for course_reg in student_reg_courses]
+        units = [course_reg.course.course_unit for course_reg in student_reg_courses]
+        gpa = calculate_gpa(scores, units)
+
+        student_reg_courses[0].student.gpa = gpa
+        db.session.commit()
+        session["alert"] = "Result uploaded successfully"
+        session["bg_color"] = "success"
+        return redirect(url_for("admin.view_student", student_id=student_id))
+    except Exception as e:
+        print(e, "error@upload_result")
+        db.session.rollback()
+        session["alert"] = "Network Error"
+        session["bg_color"] = "danger"
+        return redirect(url_for("admin.view_student", student_id=student_id))
+
+
+# change active status
+@admin.route("/change_active_status/<student_id>", methods=["GET"])
+@login_required
+@admin_required
+def change_active_status(student_id):
+    try:
+        student = Student.query.get(student_id)
+        student.active = not student.active
+        db.session.commit()
+        session["alert"] = "Student suspended successfully" if not student.active else "Student activated successfully"
+        session["bg_color"] = "success"
+        return redirect(url_for("admin.view_student", student_id=student_id))
+    except Exception as e:
+        print(e, "error@change_active_status")
+        db.session.rollback()
+        session["alert"] = "Network Error"
+        session["bg_color"] = "danger"
+        return redirect(url_for("admin.view_student", student_id=student_id))
