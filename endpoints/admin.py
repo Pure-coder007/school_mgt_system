@@ -475,7 +475,7 @@ def view_student(student_id):
     bg_color = session.pop("bg_color", None)
     student = Student.query.get(student_id)
     if not student:
-        return redirect(url_for("admin.students"))
+        return redirect(url_for("admin.student_quarters"))
     course_registered = CourseRegistered.query.filter_by(
         student_id=student_id
     )
