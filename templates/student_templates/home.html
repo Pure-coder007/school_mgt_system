@@ -25,10 +25,19 @@
                 <!-- User Profile content -->
                 <div class="row">
                     <div class="col-sm-3">
-                      <p class="mb-0">Full Name</p>
+                      <p class="mb-0">Last Name</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">{{current_user.last_name}} {{current_user.first_name}}</p>
+                      <p class="text-muted mb-0">{{current_user.last_name}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">First Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{current_user.first_name}}</p>
                     </div>
                   </div>
                   <hr>
@@ -71,7 +80,7 @@
             </div>
             <div class="card-body">
                 <!-- Academic Details content -->
-                <h1>{{current_user.gpa}}</h1>
+                <h1 class="text-muted">{{current_user.gpa}}</h1>
             </div>
         </div>
 
@@ -81,7 +90,7 @@
             </div>
             <div class="card-body">
                 <!-- Academic Details content -->
-                <h1>{{highest_score.score}}</h1>
+                <h1 class="text-muted">{{highest_score.score}} <small>%</small></h1>
                 <span class="text-muted">{{highest_score.course.course_code}}</span>
             </div>
         </div>
