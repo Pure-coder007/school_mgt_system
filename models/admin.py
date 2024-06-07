@@ -105,8 +105,10 @@ def get_roles():
 
 
 # get admins
-def get_admins(page, per_page):
-    admins = Admin.query.order_by(desc(Admin.date_created)).paginate(
+def get_admins(page, per_page, role):
+    admins = Admin.query.filter(
+        (Admin.role_id == role) if (role and role != "all") else True
+    ).order_by(desc(Admin.date_created)).paginate(
         page=page, per_page=per_page, error_out=False
     )
     total_pages = admins.pages
