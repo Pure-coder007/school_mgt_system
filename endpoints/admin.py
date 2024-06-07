@@ -239,10 +239,11 @@ def teams():
     try:
         page = int(request.args.get("page", 1))
         per_page = int(request.args.get("per_page", 5))
+        role = request.args.get("role")
         alert = session.pop("alert", None)
         bg_color = session.pop("bg_color", None)
         roles = get_roles()
-        teams_list, total_pages, total_items = get_admins(page, per_page)
+        teams_list, total_pages, total_items = get_admins(page, per_page, role)
         if request.method == "POST":
             first_name = request.form.get("fname")
             last_name = request.form.get("lname")
