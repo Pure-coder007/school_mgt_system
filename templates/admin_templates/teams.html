@@ -79,8 +79,21 @@
 <div class="row mt-3">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <span>Moderators</span>
+                <span>
+                    <form action="" method="get">
+                        <select name="role" id="role" class="form-control py-2 shadow-none"
+                            style="font-size: .9rem !important;" onchange="this.form.submit()">
+                            <option value="" selected disabled>Role</option>
+                            {% for role in roles %}
+                            <option value="{{ role.id }}"
+                                class="form-control">{{ role.name.title() }}</option>
+                            {% endfor %}
+                            <option value="all" class="form-control">All</option>
+                        </select>
+                    </form>
+                </span>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -128,8 +141,9 @@
                                         </td>
                                         <td>
                                             <!-- Button trigger modal -->
-                                            <span type="button" class="btn btn-info badge fw-normal"
-                                              {% if team.courses_assigned > 0 %} data-bs-toggle="modal" data-bs-target="#assigModal{{team.id}}" {% endif %}
+                                            <span type="button" class="btn btn-info badge fw-normal" {% if
+                                                team.courses_assigned> 0 %} data-bs-toggle="modal"
+                                                data-bs-target="#assigModal{{team.id}}" {% endif %}
                                                 style="font-size: .8rem;">
                                                 {{team.courses_assigned}}
                                             </span>
@@ -159,11 +173,12 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="row m-auto justify-content-center" style="gap: .5rem;">
-                                                    {% for course in team.courses %}
+                                                        {% for course in team.courses %}
                                                         <div class="col-md-12 border text-muted p-2">
-                                                        {{course.course_code}} - {{course.course_title}} - {{course.course_unit}} unit(s)
+                                                            {{course.course_code}} - {{course.course_title}} -
+                                                            {{course.course_unit}} unit(s)
                                                         </div>
-                                                    {% endfor %}
+                                                        {% endfor %}
                                                     </div>
                                                 </div>
                                             </div>
