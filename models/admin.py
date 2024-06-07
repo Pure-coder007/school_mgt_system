@@ -124,6 +124,7 @@ def get_admins(page, per_page):
                 "adm_id": admin.adm_id,
                 "date_created": admin.date_created.strftime("%d %b, %Y"),
                 "time_created": admin.date_created.strftime("%I:%M %p"),
+                "courses_assigned": len(admin.courses),
             }
             for admin in admins.items
         ],
