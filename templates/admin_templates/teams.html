@@ -59,7 +59,8 @@
                                     <label class="form-check-label mx-2" for="invalidCheck2">
                                         Super admin?
                                     </label>
-                                    <input class="form-check-input p-0 rounded-circle border-2" name="is_superadmin" type="checkbox" value="yes" id="invalidCheck2">
+                                    <input class="form-check-input p-0 rounded-circle border-2" name="is_superadmin"
+                                        type="checkbox" value="yes" id="invalidCheck2">
                                 </div>
                             </div>
                             <div class="row justify-content-end mt-2">
@@ -115,8 +116,10 @@
                                         <td>
                                             <span class="text-muted"
                                                 style="font-size: .8rem;">{{team.adm_id}}</span><br>
-                                            <span class="text-muted"
-                                                style="font-size: .8rem;">{{team.role.title()}} {% if team.is_superadmin %} &nbsp; <i class="fas fa-crown text-warning bg-dark p-1 rounded" style="font-size: .7rem;"></i> {% endif %}</span>
+                                            <span class="text-muted" style="font-size: .8rem;">{{team.role.title()}} {%
+                                                if team.is_superadmin %} &nbsp; <i
+                                                    class="fas fa-crown text-warning bg-dark p-1 rounded"
+                                                    style="font-size: .7rem;"></i> {% endif %}</span>
                                         </td>
                                         <td>
                                             <span class="text-muted" style="font-size: .8rem;">{{team.email}}</span><br>
@@ -124,7 +127,11 @@
                                                 style="font-size: .8rem;">{{team.phone_number}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-muted" style="font-size: .8rem;">{{team.courses_assigned}}
+                                            <!-- Button trigger modal -->
+                                            <span type="button" class="btn btn-info badge fw-normal"
+                                              {% if team.courses_assigned > 0 %} data-bs-toggle="modal" data-bs-target="#assigModal{{team.id}}" {% endif %}
+                                                style="font-size: .8rem;">
+                                                {{team.courses_assigned}}
                                             </span>
                                         </td>
                                         <td>
@@ -136,10 +143,32 @@
                                         <td>
                                             <a href="{{ url_for('admin.view_student', student_id=team.id) }}"
                                                 class="btn py-0 px-3 btn-outline-info btn-circle btn-lg btn-circle text-decoration-none shadow-none">
-                                                <i
-                                                    class="fa-solid fa-circle-info" style="font-size: .8rem;"></i></a>
+                                                <i class="fa-solid fa-circle-info" style="font-size: .8rem;"></i></a>
                                         </td>
                                     </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="assigModal{{team.id}}" tabindex="-1"
+                                        aria-labelledby="assigModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="assigModalLabel">Assigned Courses</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row m-auto justify-content-center" style="gap: .5rem;">
+                                                    {% for course in team.courses %}
+                                                        <div class="col-md-12 border text-muted p-2">
+                                                        {{course.course_code}} - {{course.course_title}} - {{course.course_unit}} unit(s)
+                                                        </div>
+                                                    {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {% endfor %}
 
                                 </tbody>
@@ -149,40 +178,46 @@
                 </div>
 
                 <!-- Pagination controls -->
-<nav aria-label="Page navigation example" class="mt-4">
-    <ul class="pagination justify-content-center">
-        {% if page > 1 %}
-        <li class="page-item">
-            <a class="page-link btn btn-info" href="{{ url_for('admin.teams', page=1, per_page=per_page) }}" aria-label="First">
-                <span aria-hidden="true">&laquo;&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link btn btn-info" href="{{ url_for('admin.teams', page=page-1, per_page=per_page) }}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        {% endif %}
-        {% for num in range(1, total_pages + 1) %}
-        <li class="page-item {% if num == page %}active{% endif %}">
-            <a class="page-link btn btn-info" href="{{ url_for('admin.teams', page=num, per_page=per_page) }}">{{ num }}</a>
-        </li>
-        {% endfor %}
-        {% if page < total_pages %}
-        <li class="page-item">
-            <a class="page-link btn btn-info" href="{{ url_for('admin.teams', page=page+1, per_page=per_page) }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link btn btn-info" href="{{ url_for('admin.teams', page=total_pages, per_page=per_page) }}" aria-label="Last">
-                <span aria-hidden="true">&raquo;&raquo;</span>
-            </a>
-        </li>
-        {% endif %}
-    </ul>
-</nav>
-<!-- End Pagination controls -->
+                <nav aria-label="Page navigation example" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if page > 1 %}
+                        <li class="page-item">
+                            <a class="page-link btn btn-info"
+                                href="{{ url_for('admin.teams', page=1, per_page=per_page) }}" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link btn btn-info"
+                                href="{{ url_for('admin.teams', page=page-1, per_page=per_page) }}"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% for num in range(1, total_pages + 1) %}
+                        <li class="page-item {% if num == page %}active{% endif %}">
+                            <a class="page-link btn btn-info"
+                                href="{{ url_for('admin.teams', page=num, per_page=per_page) }}">{{ num }}</a>
+                        </li>
+                        {% endfor %}
+                        {% if page < total_pages %} <li class="page-item">
+                            <a class="page-link btn btn-info"
+                                href="{{ url_for('admin.teams', page=page+1, per_page=per_page) }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link btn btn-info"
+                                    href="{{ url_for('admin.teams', page=total_pages, per_page=per_page) }}"
+                                    aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                    </ul>
+                </nav>
+                <!-- End Pagination controls -->
 
 
             </div>
@@ -282,35 +317,34 @@
         box-shadow: none !important;
         outline-width: 0
     }
-
 </style>
 
 <script>
     role = document.getElementById("role");
-checkbox = document.getElementById("checkbox");
+    checkbox = document.getElementById("checkbox");
 
-checked_box = document.getElementById("invalidCheck2")
+    checked_box = document.getElementById("invalidCheck2")
 
-role.addEventListener("change", function () {
-    var selectedOption = role.options[role.selectedIndex];
+    role.addEventListener("change", function () {
+        var selectedOption = role.options[role.selectedIndex];
 
-    // Get the displayed text of the selected option
-    var displayedText = selectedOption.text;
+        // Get the displayed text of the selected option
+        var displayedText = selectedOption.text;
 
-    // Use displayedText as needed (e.g., log it to the console)
-    console.log(displayedText, "role");
-    
-    // Check if the displayed text matches the roles for which you want to reveal the checkbox
-    if (displayedText === "Admin") {
-        console.log("yes");
-        checkbox.style.display = "block";
-    } else {
-        console.log("no");
-        checkbox.style.display = "none";
-        // uncheck the checkbox
-        checked_box.checked = false;
-    }
-});
+        // Use displayedText as needed (e.g., log it to the console)
+        console.log(displayedText, "role");
+
+        // Check if the displayed text matches the roles for which you want to reveal the checkbox
+        if (displayedText === "Admin") {
+            console.log("yes");
+            checkbox.style.display = "block";
+        } else {
+            console.log("no");
+            checkbox.style.display = "none";
+            // uncheck the checkbox
+            checked_box.checked = false;
+        }
+    });
 
 
 
