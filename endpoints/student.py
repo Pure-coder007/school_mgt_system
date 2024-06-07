@@ -20,12 +20,14 @@ def student_dashboard():
     all_registered_courses = CourseRegistered.query.filter_by(
         student_id=current_user.id
     )
+    highest_score = all_registered_courses.order_by(desc(CourseRegistered.score)).first()
     return render_template(
         "student_templates/home.html",
         student_dashboard=True,
         alert=alert,
         bg_color=bg_color,
-        all_registered_courses=all_registered_courses
+        all_registered_courses=all_registered_courses,
+        highest_score=highest_score
     )
 
 
