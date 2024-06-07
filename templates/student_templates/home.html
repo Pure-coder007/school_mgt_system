@@ -60,11 +60,11 @@
                       <p class="text-muted mb-0">{{current_user.phone}}</p>
                     </div>
                   </div>
-                  <hr>
             </div>
         </div>
     </div>
     <div class="col-md-3 d-none d-md-block">
+        <div class="">
         <div class="card">
             <div class="card-header">
                 GPA
@@ -74,6 +74,18 @@
                 <h1>{{current_user.gpa}}</h1>
             </div>
         </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                Highest Scores
+            </div>
+            <div class="card-body">
+                <!-- Academic Details content -->
+                <h1>{{highest_score.score}}</h1>
+                <span class="text-muted">{{highest_score.course.course_code}}</span>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 <!-- Registered Courses -->
