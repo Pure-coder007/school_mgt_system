@@ -370,7 +370,7 @@ def teams():
             bg_color=bg_color,
             teams=True,
             roles=roles,
-            role=role,
+            fetch_role=role,
             teams_lists=teams_list,
             total_pages=total_pages,
             total_items=total_items,
