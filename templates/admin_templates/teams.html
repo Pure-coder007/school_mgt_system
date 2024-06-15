@@ -85,9 +85,9 @@
                     <form action="" method="get">
                         <select name="role" id="role" class="form-control py-2 shadow-none"
                             style="font-size: .9rem !important;" onchange="this.form.submit()">
-                            <option value="" selected disabled>Role</option>
+                            <option value="" {% if not fetch_role %} selected {% endif %} disabled>Role</option>
                             {% for role in roles %}
-                            <option value="{{ role.id }}"
+                            <option value="{{ role.id }}" {% if fetch_role == role.id %} selected {% endif %}
                                 class="form-control">{{ role.name.title() }}</option>
                             {% endfor %}
                             <option value="all" class="form-control">All</option>
