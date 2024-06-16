@@ -578,7 +578,7 @@ def change_admin_status(team_id):
         team = Admin.query.get(team_id)
         team.active = not team.active
         db.session.commit()
-        session["alert"] = "Admin suspended successfully" if not student.active else "Admin activated successfully"
+        session["alert"] = "Admin suspended successfully" if not team.active else "Admin activated successfully"
         session["bg_color"] = "success"
         return redirect(url_for("admin.view_team", team_id=team_id))
     except Exception as e:
