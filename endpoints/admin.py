@@ -566,3 +566,24 @@ def change_active_status(student_id):
         session["alert"] = "Network Error"
         session["bg_color"] = "danger"
         return redirect(url_for("admin.view_student", student_id=student_id))
+
+
+# change admin active status
+# change active status
+@admin.route("/change_admin_status/<team_id>", methods=["GET"])
+@login_required
+@admin_required
+def change_admin_status(team_id):
+    try:
+        team = Admin.query.get(team_id)
+        team.active = not team.active
+        db.session.commit()
+        session["alert"] = "Admin suspended successfully" if not student.active else "Admin activated successfully"
+        session["bg_color"] = "success"
+        return redirect(url_for("admin.view_team", team_id=team_id))
+    except Exception as e:
+        print(e, "error@change_active_status")
+        db.session.rollback()
+        session["alert"] = "Network Error"
+        session["bg_color"] = "danger"
+        return redirect(url_for("admin.view_team", team_id=team_id))
