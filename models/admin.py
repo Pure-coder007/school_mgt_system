@@ -30,6 +30,7 @@ class Admin(db.Model, UserMixin):
     # the first_name and last_name columns are not nullable
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
+    active = db.Column(db.Boolean, default=True)
     # the adm_id column is unique and not nullable
     # the default value is a function that generates a unique code
     adm_id = db.Column(
