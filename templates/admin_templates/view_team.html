@@ -23,7 +23,7 @@
               <div class="d-flex justify-content-end text-center py-1 text-body">
 
                 <div class="me-auto">
-                    <a href="" class="btn py-0 px-3 btn-info btn-lg text-decoration-none">
+                    <a href="{{ url_for('admin.change_admin_status', team_id=team.id) }}" class="btn py-0 px-3 btn-info btn-lg text-decoration-none">
                       {% if team.active %}
                         <i class="fa-solid fa-ban text-danger"></i>
                       {% else %}
