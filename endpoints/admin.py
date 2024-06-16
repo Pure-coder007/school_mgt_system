@@ -493,6 +493,29 @@ def view_student(student_id):
     )
 
 
+# view team's details
+@admin.route("/view_team/<team_id>")
+@login_required
+@admin_required
+def view_team(team_id):
+    alert = session.pop("alert", None)
+    bg_color = session.pop("bg_color", None)
+    team = Admin.query.get(team_id)
+    if not team:
+        return redirect(url_for("admin.teams"))
+    courses_ = team.courses
+    total_units = sum([course.course_unit for course in courses_])
+    return render_template(
+        "admin_templates/view_team.html",
+        alert=alert,
+        bg_color=bg_color,
+        team=team,
+        course_registered=courses_,
+        total_units=total_units,
+        teams=True,
+    )
+
+
 # upload result
 @admin.route("/upload_result/<student_id>", methods=["POST"])
 @login_required
