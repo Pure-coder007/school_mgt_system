@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row {% if not current_user.is_superadmin %} d-none {% endif %}">
     <!-- User Profile Card and Academic Details -->
     <div class="col-md-12">
         <div class="container-fluid px-1 py-5 mx-auto">
