@@ -9,9 +9,6 @@ def admin_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         admin_user = Admin.query.filter_by(id=current_user.id).first()
-        # get previous endpoint
-        # previous_endpoint = request.referrer
-        # print(previous_endpoint, "previous endpoint")
         if not admin_user:
             session["alert"] = "You cannot access this page"
             session["bg_color"] = "danger"
