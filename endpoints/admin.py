@@ -24,9 +24,6 @@ from decorators import admin_required
 admin = Blueprint("admin", __name__)
 
 
-# ADMIN-2024-660252
-
-
 @admin.route("/admin", methods=["GET"])
 def get_admin():
     return render_template("index.html")
@@ -569,7 +566,6 @@ def change_active_status(student_id):
 
 
 # change admin active status
-# change active status
 @admin.route("/change_admin_status/<team_id>", methods=["GET"])
 @login_required
 @admin_required
